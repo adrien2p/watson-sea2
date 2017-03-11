@@ -1,0 +1,87 @@
+<h2 class="u-collapse"> Speech to text Module </h2>
+
+<section>
+    <h3>Description</h3>
+    <blockquote><a href="https://www.ibm.com/watson/developercloud/speech-to-text.html" target="_blank">
+        https://www.ibm.com/watson/developercloud/speech-to-text.html
+    </a></blockquote>
+</section>
+
+<section>
+    <h3>Configuration</h3>
+    <pre class="prettyprint" [innerHtml]="config"></pre>
+</section>
+
+<section>
+    <h3>Local tunnel (<small [innerHtml]="localTunnelUrl || 'Local tunnel is not started'"></small>)</h3>
+
+    <button (click)="localTunnelStart()" class="btn btn-success btn-fill">Start</button>
+    <button (click)="localTunnelClose()" class="btn">Stop</button>
+</section>
+
+<section>
+    <h3>Methods</h3>
+
+    <section>
+        <h4>Asynchronous</h4>
+
+        <section>
+            <h5>Register callback url</h5>
+
+            <div class="form-group">
+                <label for="user_secret">User secret</label>
+                <input
+                    [(ngModel)]="userSecret"
+                    id="user_secret"
+                    type="text"
+                    class="form-control"
+                    placeholder="you can provide a user_secret: ThisIsMyUserSecret">
+            </div>
+
+            <div class="u-flex">
+                <button (click)="registerCallback()" class=" btn u-margin-bottom m-width-lg">Register a new callback url</button>
+                <pre class="prettyprint u-flex-1 u-margin-left" [innerHtml]="sttRegisterCallbackResponse.data || defaultResponse"></pre>
+            </div>
+        </section>
+
+        <section>
+            <h5>Create job</h5>
+
+            <div class="u-flex">
+                <button (click)="createRecognitionJob()" class=" btn u-margin-bottom m-width-lg">Create new job</button>
+                <pre class="prettyprint u-flex-1 u-margin-left" [innerHtml]="sttCreateRecognitionJobResponse.data || defaultResponse"></pre>
+            </div>
+        </section>
+
+        <section>
+            <h5>Get jobs</h5>
+
+            <div class="u-flex">
+                <button (click)="getRecognitionJobs()" class=" btn u-margin-bottom m-width-lg">Get all jobs created</button>
+                <pre class="prettyprint u-flex-1 u-margin-left" [innerHtml]="sttGetRecognitionJobsResponse.data || defaultResponse"></pre>
+            </div>
+        </section>
+
+        <section>
+            <h5>Get job</h5>
+
+            <div class="u-flex">
+                <button (click)="getRecognitionJob()" class=" btn u-margin-bottom m-width-lg">Get a specific job</button>
+                <pre class="prettyprint u-flex-1 u-margin-left" [innerHtml]="sttGetRecognitionJobResponse.data || defaultResponse"></pre>
+            </div>
+        </section>
+
+        <section>
+            <h5>Delete job</h5>
+
+            <div class="u-flex">
+                <button (click)="deleteRecognitionJob()" class=" btn u-margin-bottom m-width-lg">Delete a job</button>
+                <pre class="prettyprint u-flex-1 u-margin-left" [innerHtml]="sttDeleteRecognitionJobResponse.data || defaultResponse"></pre>
+            </div>
+        </section>
+    </section>
+
+    <section>
+        <h4>Synchronous</h4>
+    </section>
+</section>
