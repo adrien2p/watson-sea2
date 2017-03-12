@@ -54,7 +54,7 @@ class SpeechToTextController {
     /**
      * Creates a job for a new asynchronous recognition request.
      *
-     * @param data parameters
+     * @param {object} data parameters
      * @param {string} [data.event] recognitions.started|recognitions.completed|recognitions.failed|recognitions.completed_with_results
      * @param {string} [data.user_secret] The token allows the user to maintain an internal mapping between jobs and notification events
      * @param {string} [data.result_ttl] time to alive of the job result
