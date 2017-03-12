@@ -13,10 +13,27 @@
 </section>
 
 <section>
-    <h3>Local tunnel (<small [innerHtml]="localTunnelUrl || 'Local tunnel is not started'"></small>)</h3>
+    <h3>Local tunnel <small [innerHtml]="localTunnelResponse.url || 'Local tunnel is not started'"></small></h3>
 
-    <button (click)="localTunnelStart()" class="btn btn-success btn-fill">Start</button>
-    <button (click)="localTunnelClose()" class="btn">Stop</button>
+    <p>Becareful !</p>
+
+    <div class="Flex">
+        <button (click)="localTunnelStart()"
+                [disabled]="localTunnelResponse.ready"
+                class="btn btn-success btn-fill Flex">
+
+            Start
+            <span *ngIf="localTunnelResponse.isLoading"
+                  class="glyphicon glyphicon-repeat normal-right-spinner Flex-align-item-center u-margin-left">
+            </span>
+        </button>
+        <button (click)="localTunnelClose()"
+                [disabled]="!localTunnelResponse.ready"
+                class="btn btn-default u-margin-left">
+
+            Stop
+        </button>
+    </div>
 </section>
 
 <section>
@@ -30,53 +47,77 @@
 
             <div class="form-group">
                 <label for="user_secret">User secret</label>
-                <input
-                    [(ngModel)]="userSecret"
-                    id="user_secret"
-                    type="text"
-                    class="form-control"
-                    placeholder="you can provide a user_secret: ThisIsMyUserSecret">
+                <input [(ngModel)]="userSecret"
+                       id="user_secret"
+                       type="text"
+                       class="form-control"
+                       placeholder="you can provide a user_secret: ThisIsMyUserSecret">
             </div>
 
-            <div class="u-flex">
-                <button (click)="registerCallback()" class=" btn u-margin-bottom m-width-lg">Register a new callback url</button>
-                <pre class="prettyprint u-flex-1 u-margin-left" [innerHtml]="sttRegisterCallbackResponse.data || defaultResponse"></pre>
+            <div class="Flex">
+                <button (click)="registerCallback()" class="btn u-margin-bottom m-width-lg Flex">
+                    Register a new callback url
+                    <span *ngIf="sttRegisterCallbackResponse.isLoading"
+                          class="glyphicon glyphicon-repeat normal-right-spinner Flex-align-item-center u-margin-left">
+                    </span>
+                </button>
+                <pre class="prettyprint Flex-1 u-margin-left" [innerHtml]="sttRegisterCallbackResponse.data || defaultResponse"></pre>
             </div>
         </section>
 
         <section>
             <h5>Create job</h5>
 
-            <div class="u-flex">
-                <button (click)="createRecognitionJob()" class=" btn u-margin-bottom m-width-lg">Create new job</button>
-                <pre class="prettyprint u-flex-1 u-margin-left" [innerHtml]="sttCreateRecognitionJobResponse.data || defaultResponse"></pre>
+            <div class="Flex">
+                <button (click)="createRecognitionJob()" class="btn u-margin-bottom m-width-lg">
+                    Create new job
+                    <span *ngIf="sttCreateRecognitionJobResponse.isLoading"
+                          class="glyphicon glyphicon-repeat normal-right-spinner Flex-align-item-center u-margin-left">
+                    </span>
+                </button>
+                <pre class="prettyprint Flex-1 u-margin-left" [innerHtml]="sttCreateRecognitionJobResponse.data || defaultResponse"></pre>
             </div>
         </section>
 
         <section>
             <h5>Get jobs</h5>
 
-            <div class="u-flex">
-                <button (click)="getRecognitionJobs()" class=" btn u-margin-bottom m-width-lg">Get all jobs created</button>
-                <pre class="prettyprint u-flex-1 u-margin-left" [innerHtml]="sttGetRecognitionJobsResponse.data || defaultResponse"></pre>
+            <div class="Flex">
+                <button (click)="getRecognitionJobs()" class="btn u-margin-bottom m-width-lg">
+                    Get all jobs created
+                    <span *ngIf="sttGetRecognitionJobsResponse.isLoading"
+                          class="glyphicon glyphicon-repeat normal-right-spinner Flex-align-item-center u-margin-left">
+                    </span>
+                </button>
+                <pre class="prettyprint Flex-1 u-margin-left" [innerHtml]="sttGetRecognitionJobsResponse.data || defaultResponse"></pre>
             </div>
         </section>
 
         <section>
             <h5>Get job</h5>
 
-            <div class="u-flex">
-                <button (click)="getRecognitionJob()" class=" btn u-margin-bottom m-width-lg">Get a specific job</button>
-                <pre class="prettyprint u-flex-1 u-margin-left" [innerHtml]="sttGetRecognitionJobResponse.data || defaultResponse"></pre>
+            <div class="Flex">
+                <button (click)="getRecognitionJob()" class="btn u-margin-bottom m-width-lg">
+                    Get a specific job
+                    <span *ngIf="sttGetRecognitionJobResponse.isLoading"
+                          class="glyphicon glyphicon-repeat normal-right-spinner Flex-align-item-center u-margin-left">
+                    </span>
+                </button>
+                <pre class="prettyprint Flex-1 u-margin-left" [innerHtml]="sttGetRecognitionJobResponse.data || defaultResponse"></pre>
             </div>
         </section>
 
         <section>
             <h5>Delete job</h5>
 
-            <div class="u-flex">
-                <button (click)="deleteRecognitionJob()" class=" btn u-margin-bottom m-width-lg">Delete a job</button>
-                <pre class="prettyprint u-flex-1 u-margin-left" [innerHtml]="sttDeleteRecognitionJobResponse.data || defaultResponse"></pre>
+            <div class="Flex">
+                <button (click)="deleteRecognitionJob()" class="btn u-margin-bottom m-width-lg">
+                    Delete a job
+                    <span *ngIf="sttDeleteRecognitionJobResponse.isLoading"
+                          class="glyphicon glyphicon-repeat normal-right-spinner Flex-align-item-center u-margin-left">
+                    </span>
+                </button>
+                <pre class="prettyprint Flex-1 u-margin-left" [innerHtml]="sttDeleteRecognitionJobResponse.data || defaultResponse"></pre>
             </div>
         </section>
     </section>

@@ -6,6 +6,11 @@ import LocalTunnelController from './../controller/localTunnelController';
 class SocketManagerService {
     constructor() {}
 
+    /**
+     * Initialize socket setup.
+     *
+     * @param {Socket} socket
+     */
     init(socket) {
         this._setupSocketsSTT(socket);
         this._setupSocketsLocalTunnel(socket);
@@ -15,6 +20,12 @@ class SocketManagerService {
     /*                                       Speech to text                                            */
     /***************************************************************************************************/
 
+    /**
+     * Create speech to text listener and connect them to the appropriate controller action.
+     *
+     * @param {SocketIOClient.Socket} socket
+     * @private
+     */
     _setupSocketsSTT(socket) {
         const speechToTextController = new SpeechToTextController(socket);
         socket.on('post-stt-registerCallback', (data) => speechToTextController.registerCallback(data));
@@ -28,7 +39,13 @@ class SocketManagerService {
     /***************************************************************************************************/
     /*                                       Local Tunnel                                              */
     /***************************************************************************************************/
-    
+
+    /**
+     * Create local tunnel listener and connect them to the appropriate controller action.
+     *
+     * @param {SocketIOClient.Socket} socket
+     * @private
+     */
     _setupSocketsLocalTunnel(socket) {
         const localTunnelController = new LocalTunnelController(socket);
         socket.on('post-localTunnel-start', () => localTunnelController.start());

@@ -4,13 +4,8 @@ $icon-font-path: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/";
 @import '../node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
 @import './assets/libs/template/sass/light-bootstrap-dashboard';
 
-// Utilities
-.u-margin-bottom { margin-bottom: 1rem; }
-.u-margin-left { margin-left: 1rem; }
+// Project shared styles
+@import './assets/styles/flex';
+@import './assets/styles/loader';
+@import './assets/styles/utilities';
 
-.u-collapse { margin: 0; }
-.u-collapseBottom { margin-bottom: 0; }
-.u-collapseTop { margin-top: 0; }
-
-.u-flex { display: flex; }
-.u-flex-1 { flex: 1; }

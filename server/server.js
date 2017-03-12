@@ -11,8 +11,8 @@ import path from 'path';
 
 import globalConfig from './config/global';
 
+import routerManagerService from './service/routerManagerService';
 import socketManagerService from './service/socketManagerService';
-import speechToTextService from './service/speechToTextService';
 
 const app = express();
 const server = http.Server(app);
@@ -31,12 +31,8 @@ app.use(express.static(path.resolve(__dirname, '..', 'dist')));
 /* Setup sockets */
 io.on('connection', (socket) => socketManagerService.init(socket));
 
-/* Set route for special needed (async speech to text for example) */
-
-app.get('/stt-callback-results', (req, res) => {
-
-});
-app.get('/stt-callback-results-secure', (req, res) => res.send(speechToTextService.userSecretSha1));
+/* Setup routing */
+routerManagerService.init(app);
 
 /* Catch all get and return index.html */
 app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html')));

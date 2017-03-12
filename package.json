@@ -1,6 +1,6 @@
 {
-  "name": "watsonSEA2Sample",
-  "version": "0.0.0",
+  "name": "watson-sea2-sample",
+  "version": "0.0.1",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -29,8 +29,9 @@
     "compression": "^1.6.1",
     "cookie-parser": "^1.4.3",
     "core-js": "^2.4.1",
+    "crypto": "0.0.3",
+    "es-module-loader": "^2.1.2",
     "express": "^4.13.4",
-    "js-sha1": "^0.4.1",
     "localtunnel": "^1.8.2",
     "morgan": "^1.8.1",
     "rxjs": "^5.1.0",
