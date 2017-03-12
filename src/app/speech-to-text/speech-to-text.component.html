@@ -15,8 +15,6 @@
 <section>
     <h3>Local tunnel <small [innerHtml]="localTunnelResponse.url || 'Local tunnel is not started'"></small></h3>
 
-    <p>Becareful !</p>
-
     <div class="Flex">
         <button (click)="localTunnelStart()"
                 [disabled]="localTunnelResponse.ready"
@@ -34,6 +32,8 @@
             Stop
         </button>
     </div>
+
+    <small>Becareful ! you should use the local tunnel only on your local manchine</small>
 </section>
 
 <section>
@@ -69,7 +69,7 @@
             <h5>Create job</h5>
 
             <div class="Flex">
-                <button (click)="createRecognitionJob()" class="btn u-margin-bottom m-width-lg">
+                <button (click)="createRecognitionJob()" class="btn u-margin-bottom m-width-lg Flex">
                     Create new job
                     <span *ngIf="sttCreateRecognitionJobResponse.isLoading"
                           class="glyphicon glyphicon-repeat normal-right-spinner Flex-align-item-center u-margin-left">
@@ -83,7 +83,7 @@
             <h5>Get jobs</h5>
 
             <div class="Flex">
-                <button (click)="getRecognitionJobs()" class="btn u-margin-bottom m-width-lg">
+                <button (click)="getRecognitionJobs()" class="btn u-margin-bottom m-width-lg Flex">
                     Get all jobs created
                     <span *ngIf="sttGetRecognitionJobsResponse.isLoading"
                           class="glyphicon glyphicon-repeat normal-right-spinner Flex-align-item-center u-margin-left">
@@ -97,7 +97,7 @@
             <h5>Get job</h5>
 
             <div class="Flex">
-                <button (click)="getRecognitionJob()" class="btn u-margin-bottom m-width-lg">
+                <button (click)="getRecognitionJob()" class="btn u-margin-bottom m-width-lg Flex">
                     Get a specific job
                     <span *ngIf="sttGetRecognitionJobResponse.isLoading"
                           class="glyphicon glyphicon-repeat normal-right-spinner Flex-align-item-center u-margin-left">
@@ -111,7 +111,7 @@
             <h5>Delete job</h5>
 
             <div class="Flex">
-                <button (click)="deleteRecognitionJob()" class="btn u-margin-bottom m-width-lg">
+                <button (click)="deleteRecognitionJob()" class="btn u-margin-bottom m-width-lg Flex">
                     Delete a job
                     <span *ngIf="sttDeleteRecognitionJobResponse.isLoading"
                           class="glyphicon glyphicon-repeat normal-right-spinner Flex-align-item-center u-margin-left">

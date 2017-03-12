@@ -52,7 +52,7 @@ export class SpeechToTextComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * Allow to close an opened local tunnel.
+     * Start a new local tunnel to expose yourself (should be used only on local machine).
      */
     public localTunnelClose(): void {
         this.localTunnelService.close().subscribe(() => {
@@ -62,8 +62,7 @@ export class SpeechToTextComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * Allow to register a new callback url.
-     * Can provide a user_secret parameter to pass through secure callback_url.
+     * Register new callback url to receive notifications on job.
      */
     public registerCallback(): void {
         this.sttRegisterCallbackResponse.isLoading = true;
@@ -74,18 +73,19 @@ export class SpeechToTextComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * Allow to create a new revognition job.
+     * Create a new asynchronous recognition job.
      */
     public createRecognitionJob(): void {
         this.sttCreateRecognitionJobResponse.isLoading = true;
         this.speechToTextService.createRecognitionJob().subscribe((res) => {
             this.sttCreateRecognitionJobResponse.isLoading = false;
+            console.log(res);
             this.sttCreateRecognitionJobResponse.data = JSON.stringify((res.err || res.data), null, 4);
         });
     }
 
     /**
-     * Allow to get all revognition jobs previously created.
+     * Get all asynchronous recognition jobs created.
      */
     public getRecognitionJobs(): void {
         this.sttGetRecognitionJobsResponse.isLoading = true;
@@ -96,7 +96,7 @@ export class SpeechToTextComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * Allow to get specific recognition job with the given id.
+     * Get specific asynchronous recognition joib created.
      */
     public getRecognitionJob(): void {
         this.sttGetRecognitionJobResponse.isLoading = true;
@@ -107,7 +107,7 @@ export class SpeechToTextComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * Allow to delete specific recognition job with the given id.
+     * Delete an asynchronous recognition job.
      */
     public deleteRecognitionJob(): void {
         this.sttDeleteRecognitionJobResponse.isLoading = true;

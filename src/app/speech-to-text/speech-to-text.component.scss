@@ -1,4 +1,6 @@
 .btn {
     @extend .btn;
     height: 4rem;
+
+    &.m-width-lg { min-width: 20rem; }
 }
