@@ -8,10 +8,20 @@ export class LocalTunnelService {
 
     constructor(private socketManagerService: SocketManagerService) { }
 
+    /**
+     * Allow to start a new local tunnel, must only used in local mode.
+     *
+     * @returns {Observable<any>}
+     */
     start(): Observable<any> {
         return this.socketManagerService.localTunnelStart();
     }
 
+    /**
+     * Allow to close a local tunnel.
+     *
+     * @returns {Observable<any>}
+     */
     close(): Observable<any> {
         return this.socketManagerService.localTunnelClose();
     }

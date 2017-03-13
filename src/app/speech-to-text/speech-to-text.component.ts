@@ -69,7 +69,7 @@ export class SpeechToTextComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * Start a new local tunnel to expose yourself (should be used only on local machine).
+     * Allow to close a local tunnel.
      */
     public localTunnelClose(): void {
         this.localTunnelService.close().subscribe(() => {

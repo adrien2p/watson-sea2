@@ -103,7 +103,7 @@ class SpeechToTextController {
     }
 
     /**
-     * delete specific job associated with the service credentials with which it is called.
+     * Delete specific job associated with the service credentials with which it is called.
      *
      * @param {object} data parameters
      * @param {number} data.id job id
@@ -148,6 +148,9 @@ class SpeechToTextController {
         }
     }
 
+    /**
+     * Receive notification about job status and redirect to the client.
+     */
     notifyJobStatus(req, res) {
         req.io.emit('res-stt-notifyJobStatus', { data: req.body });
     }
