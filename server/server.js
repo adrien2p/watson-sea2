@@ -29,7 +29,15 @@ app.use(cookieParser());
 app.use(express.static(path.resolve(__dirname, '..', 'dist')));
 
 /* Setup sockets */
-io.on('connection', (socket) => socketManagerService.init(socket));
+io.on('connection', (socket) => {
+    socketManagerService.init(socket);
+});
+
+/* Bind socket to the router */
+app.use((req, res, next) => {
+    req.io = io;
+    next();
+});
 
 /* Setup routing */
 routerManagerService.init(app);

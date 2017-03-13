@@ -23,32 +23,36 @@ export class SocketManagerService {
         return new Observable(observer => this.socket.on('res-stt-config', res => observer.next(res)));
     }
 
-    speechToTextRegisterCallback(data: {[key: string]: any}): Observable<any> {
-        this.socket.emit('post-stt-registerCallback', data);
+    speechToTextRegisterCallback(params: {[key: string]: any}): Observable<any> {
+        this.socket.emit('post-stt-registerCallback', params);
 
         return new Observable(observer => this.socket.on('res-stt-registerCallback', res => observer.next(res)));
     }
 
-    speechToTextCreateRecognitionJob(): Observable<any> {
-        this.socket.emit('post-stt-createRecognitionJob');
+    speechToTextCreateRecognitionJob(params: {[key: string]: any}): Observable<any> {
+        this.socket.emit('post-stt-createRecognitionJob', params);
 
         return new Observable(observer => this.socket.on('res-stt-createRecognitionJob', res => observer.next(res)));
     }
 
+    speechToTextNotifyJobStatus(): Observable<any> {
+        return new Observable(observer => this.socket.on('res-stt-notifyJobStatus', res => observer.next(res)));
+    }
+
     speechToTextGetRecognitionJobs(): Observable<any> {
-        this.socket.emit('post-stt-getRecognitionJobs');
+        this.socket.emit('get-stt-getRecognitionJobs');
 
         return new Observable(observer => this.socket.on('res-stt-getRecognitionJobs', res => observer.next(res)));
     }
 
-    speechToTextGetRecognitionJob(): Observable<any> {
-        this.socket.emit('post-stt-getRecognitionJob');
+    speechToTextGetRecognitionJob(params: {[key: string]: any}): Observable<any> {
+        this.socket.emit('get-stt-getRecognitionJob', params);
 
         return new Observable(observer => this.socket.on('res-stt-getRecognitionJob', res => observer.next(res)));
     }
 
-    speechToTextDeleteRecognitionJob(): Observable<any> {
-        this.socket.emit('post-stt-deleteRecognitionJob');
+    speechToTextDeleteRecognitionJob(params: {[key: string]: any}): Observable<any> {
+        this.socket.emit('delete-stt-deleteRecognitionJob', params);
 
         return new Observable(observer => this.socket.on('res-stt-deleteRecognitionJob', res => observer.next(res)));
     }

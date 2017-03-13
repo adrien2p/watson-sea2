@@ -14,14 +14,27 @@ export class SpeechToTextComponent implements OnInit, OnDestroy {
 
     public defaultResponse = 'Nothing to show for now';
 
-    public localTunnelResponse = { ready: false, isLoading: false, url: null };
+    public sttNotifyJobStatusResponse = { data: null };
     public sttRegisterCallbackResponse = { data: null, isLoading: false };
     public sttCreateRecognitionJobResponse = { data: null, isLoading: false };
     public sttGetRecognitionJobsResponse = { data: null, isLoading: false };
     public sttGetRecognitionJobResponse = { data: null, isLoading: false };
     public sttDeleteRecognitionJobResponse = { data: null, isLoading: false };
+    public localTunnelResponse = { ready: false, isLoading: false, url: null };
 
     public userSecret: string;
+    public userToken: string;
+    public resultsTTL: number;
+    public jobIdToGet: number;
+    public jobIdToDelete: number;
+    public jobStatusEvent: string;
+
+    public STATUS_EVENTS = [
+        'recognitions.started',
+        'recognitions.completed',
+        'recognitions.failed',
+        'recognitions.completed_with_results'
+    ];
 
     constructor(private speechToTextService: SpeechToTextService,
                 private localTunnelService: LocalTunnelService) {
@@ -31,6 +44,10 @@ export class SpeechToTextComponent implements OnInit, OnDestroy {
         this.speechToTextService.getConfig().subscribe(res => {
             if (res.err) return;
             this.config = JSON.stringify(res.data, null, 4);
+        });
+
+        this.speechToTextService.speechToTextNotifyJobStatus().subscribe((res) => {
+            this.sttNotifyJobStatusResponse.data = JSON.stringify((res.err || res.data), null, 4);
         });
     }
 
@@ -77,15 +94,21 @@ export class SpeechToTextComponent implements OnInit, OnDestroy {
      */
     public createRecognitionJob(): void {
         this.sttCreateRecognitionJobResponse.isLoading = true;
-        this.speechToTextService.createRecognitionJob().subscribe((res) => {
+
+        const params = {
+            event: this.jobStatusEvent,
+            user_token: this.userToken,
+            results_ttl: this.resultsTTL
+        };
+
+        this.speechToTextService.createRecognitionJob(params).subscribe((res) => {
             this.sttCreateRecognitionJobResponse.isLoading = false;
-            console.log(res);
             this.sttCreateRecognitionJobResponse.data = JSON.stringify((res.err || res.data), null, 4);
         });
     }
 
     /**
-     * Get all asynchronous recognition jobs created.
+     * Get all asynchronous recognition jobs.
      */
     public getRecognitionJobs(): void {
         this.sttGetRecognitionJobsResponse.isLoading = true;
@@ -96,22 +119,22 @@ export class SpeechToTextComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * Get specific asynchronous recognition joib created.
+     * Get specific asynchronous recognition job.
      */
     public getRecognitionJob(): void {
         this.sttGetRecognitionJobResponse.isLoading = true;
-        this.speechToTextService.getRecognitionJob().subscribe((res) => {
+        this.speechToTextService.getRecognitionJob({ id: this.jobIdToGet }).subscribe((res) => {
             this.sttGetRecognitionJobResponse.isLoading = false;
             this.sttGetRecognitionJobResponse.data = JSON.stringify((res.err || res.data), null, 4);
         });
     }
 
     /**
-     * Delete an asynchronous recognition job.
+     * Delete a specific asynchronous recognition job.
      */
     public deleteRecognitionJob(): void {
         this.sttDeleteRecognitionJobResponse.isLoading = true;
-        this.speechToTextService.deleteRecognitionJob().subscribe((res) => {
+        this.speechToTextService.deleteRecognitionJob({ id: this.jobIdToDelete }).subscribe((res) => {
             this.sttDeleteRecognitionJobResponse.isLoading = false;
             this.sttDeleteRecognitionJobResponse.data = JSON.stringify((res.err || res.data), null, 4);
         });

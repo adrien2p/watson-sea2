@@ -27,8 +27,7 @@ class RouteManagerService {
     _setupRouterSTT(app) {
         const speechToTextController = new SpeechToTextController();
         app.get('/stt-callback-results', speechToTextController.validateCallbackRegistering);
-        app.get('/stt-callback-results-secure', speechToTextController.validateSecureCallbackRegistering);
-        app.post('/stt-callback-results', speechToTextController.notifyJobComplete);
+        app.post('/stt-callback-results', speechToTextController.notifyJobStatus);
     }
 }
 

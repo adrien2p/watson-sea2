@@ -12,12 +12,11 @@ import speechToTextService from './../service/speechToTextService';
 
 class SpeechToTextController {
     constructor(socket) {
-        this._resourcesDir = __dirname + '/../../resources';
+        this._socket = socket;
 
-        this._socket = socket || {};
+        this._resourcesDir = __dirname + '/../../resources';
         this._speechToText = new SpeechToTextV1(speechToTextConfig);
         this._callbackUrl = '/stt-callback-results';
-        this._secureCallbackUrl = '/stt-callback-results-secure';
     }
 
     /**
@@ -34,16 +33,12 @@ class SpeechToTextController {
      * @param {string} [data.user_secret] The token allows the user to maintain an internal mapping between jobs and notification events
      */
     registerCallback(data) {
-        data = data || {};
-        const params = { callback_url: `${localTunnelService.url}${this._callbackUrl}` };
+        const params  = data || {};
+        params.callback_url =  `${localTunnelService.url}${this._callbackUrl}`;
 
         if (data.user_secret) {
             speechToTextService.userSecret = data.user_secret;
-
-            Object.assign(params, {
-                user_secret: speechToTextService.userSecret,
-                callback_url: `${localTunnelService.url}${this._secureCallbackUrl}`
-            });
+            params.user_secret = speechToTextService.userSecret;
         }
 
         this._speechToText.registerCallback(params, (err, res) => {
@@ -60,7 +55,7 @@ class SpeechToTextController {
      * @param {string} [data.result_ttl] time to alive of the job result
      */
     createRecognitionJob(data) {
-        data = data || {};
+        const params = data || {};
 
         fs.readdir(this._resourcesDir, (err, files) => {
             let audioFilePath = '';
@@ -72,10 +67,10 @@ class SpeechToTextController {
                 }
             });
 
-            const params = {};
-            Object.assign(params, data, {
+            Object.assign(params, {
                 audio: fs.createReadStream(audioFilePath),
-                content_type: mime.lookup(audioFile)
+                content_type: mime.lookup(audioFile),
+                callback_url: `${localTunnelService.url}${this._callbackUrl}`
             });
 
             this._speechToText.createRecognitionJob(params, (err, res) => {
@@ -84,52 +79,77 @@ class SpeechToTextController {
         });
     }
 
+    /**
+     * Returns the status and ID of all outstanding jobs associated with the service credentials with which it is called.
+     */
     getRecognitionJobs() {
-    }
-
-    getRecognitionJob() {
-    }
-
-    deleteRecognitionJob() {
+        this._speechToText.getRecognitionJobs({}, (err, res) => {
+            this._socket.emit('res-stt-getRecognitionJobs', { err, data: res });
+        });
     }
 
     /**
-     * Callback called (get) to validate a new callback url without user_secret parameter.
+     * Returns the status and ID of specific outstanding jobs associated with the service credentials with which it is called.
+     *
+     * @param {object} data parameters
+     * @param {number} data.id job id
+     */
+    getRecognitionJob(data) {
+        const params = data || {};
+
+        this._speechToText.getRecognitionJob(params, (err, res) => {
+            this._socket.emit('res-stt-getRecognitionJob', { err, data: res });
+        });
+    }
+
+    /**
+     * delete specific job associated with the service credentials with which it is called.
+     *
+     * @param {object} data parameters
+     * @param {number} data.id job id
+     */
+    deleteRecognitionJob(data) {
+        const params = data || {};
+
+        this._speechToText.deleteRecognitionJob(params, (err, res) => {
+            this._socket.emit('res-stt-deleteRecognitionJob', { err, data: {
+                id: params.id
+            }});
+        });
+    }
+
+    /**
+     * Callback called to validate a new callback url.
      */
     validateCallbackRegistering(req, res) {
         const challenge = req.query.challenge_string;
         const signature = req.headers['x-callback-signature'];
 
-        console.log('Speech to Text async callback registration - challenge_string: %s', challenge);
-        res.send(req.query.challenge_string)
-    }
+        if (speechToTextService.userSecret) {
+            if (!signature) throw new Error('Signature is missing');
 
-    /**
-     * Callback called (get) to validate a new callback url with user_secret parameter.
-     */
-    validateSecureCallbackRegistering(req, res) {
-        const challenge = req.query.challenge_string;
+            const content = req.method === 'POST' ? JSON.stringify(req.body) : req.query.challenge_string;
+            if (!content) throw new Error('No content to validate signature on');
 
-        const signature = req.headers['x-callback-signature'];
-        if (!signature) throw new Error('Signature is missing');
+            console.log('Speech to Text secure async callback registration - challenge_string: %s', challenge);
+            console.log('validating X-Callback-Signature: %s', signature);
 
-        const content = req.method === 'POST' ? JSON.stringify(req.body) : req.query.challenge_string;
-        if (!content) throw new Error('No content to validate signature on');
+            const hmac = speechToTextService.computedUserSecret;
+            hmac.update(content);
+            const expectedSignature = hmac.digest('base64');
 
-        console.log('Speech to Text secure async callback registration - challenge_string: %s', challenge);
-        console.log('validating X-Callback-Signature: %s', signature);
+            if (signature === expectedSignature) {
+                res.send(challenge);
+            }
 
-        const hmac = speechToTextService.computedUserSecret;
-        hmac.update(content);
-        const expectedSignature = hmac.digest('base64');
-
-        if (signature === expectedSignature) {
-            res.send(challenge);
+        } else {
+            console.log('Speech to Text async callback registration - challenge_string: %s', challenge);
+            res.send(req.query.challenge_string)
         }
     }
 
-    notifyJobComplete(req, res) {
-
+    notifyJobStatus(req, res) {
+        req.io.emit('res-stt-notifyJobStatus', { data: req.body });
     }
 }
 

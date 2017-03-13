@@ -1,3 +1,10 @@
+// Animation (Hover.css)
+$includeClasses: true;
+$nameSpace: 'animated-hover';
+
+@import '../node_modules/hover.css/scss/hover';
+
+// Bootstrap
 $bootstrap-sass-asset-helper: false;
 $icon-font-path: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/";
 

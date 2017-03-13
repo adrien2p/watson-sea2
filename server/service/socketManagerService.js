@@ -28,12 +28,12 @@ class SocketManagerService {
      */
     _setupSocketsSTT(socket) {
         const speechToTextController = new SpeechToTextController(socket);
-        socket.on('post-stt-registerCallback', (data) => speechToTextController.registerCallback(data));
-        socket.on('post-stt-createRecognitionJob', () => speechToTextController.createRecognitionJob());
-        socket.on('get-stt-getRecognitionJobs', () => speechToTextController.getRecognitionJobs());
-        socket.on('get-stt-getRecognitionJob', () => speechToTextController.getRecognitionJob());
         socket.on('get-stt-config', () => speechToTextController.getConfiguration());
-        socket.on('delete-stt-deleteRecognitionJob', () => speechToTextController.deleteRecognitionJob());
+        socket.on('post-stt-registerCallback', (data) => speechToTextController.registerCallback(data));
+        socket.on('post-stt-createRecognitionJob', (data) => speechToTextController.createRecognitionJob(data));
+        socket.on('get-stt-getRecognitionJobs', () => speechToTextController.getRecognitionJobs());
+        socket.on('get-stt-getRecognitionJob', (data) => speechToTextController.getRecognitionJob(data));
+        socket.on('delete-stt-deleteRecognitionJob', (data) => speechToTextController.deleteRecognitionJob(data));
     }
 
     /***************************************************************************************************/

@@ -12,23 +12,27 @@ export class SpeechToTextService {
         return this.socketManagerService.speechToTextConfig();
     }
 
-    registerCallback(data: {[key: string]: any}): Observable<any> {
-        return this.socketManagerService.speechToTextRegisterCallback(data);
+    registerCallback(params: {[key: string]: any}): Observable<any> {
+        return this.socketManagerService.speechToTextRegisterCallback(params);
     }
 
-    createRecognitionJob(): Observable<any> {
-        return this.socketManagerService.speechToTextCreateRecognitionJob();
+    createRecognitionJob(params: {[key: string]: any}): Observable<any> {
+        return this.socketManagerService.speechToTextCreateRecognitionJob(params);
+    }
+
+    speechToTextNotifyJobStatus(): Observable<any> {
+        return this.socketManagerService.speechToTextNotifyJobStatus();
     }
 
     getRecognitionJobs(): Observable<any> {
         return this.socketManagerService.speechToTextGetRecognitionJobs();
     }
 
-    getRecognitionJob(): Observable<any> {
-        return this.socketManagerService.speechToTextGetRecognitionJob();
+    getRecognitionJob(params: {[key: string]: any}): Observable<any> {
+        return this.socketManagerService.speechToTextGetRecognitionJob(params);
     }
 
-    deleteRecognitionJob(): Observable<any> {
-        return this.socketManagerService.speechToTextDeleteRecognitionJob();
+    deleteRecognitionJob(params: {[key: string]: any}): Observable<any> {
+        return this.socketManagerService.speechToTextDeleteRecognitionJob(params);
     }
 }
