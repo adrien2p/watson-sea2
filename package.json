@@ -1,7 +1,27 @@
 {
   "name": "watson-sea2-sample",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "description": "Socket.io - Express And Angular 2 app to expose sample of how to use watson, it's also a testing environment",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adrien2p/watson-sea2.git"
+  },
+  "author": "Adrien de Peretti",
+  "keywords": [
+    "watson",
+    "watson-api",
+    "watson-node-sdk",
+    "tests-api",
+    "angular2",
+    "express",
+    "socket-io"
+  ],
+  "author": "Adrien de Peretti <adrien.deperetti.freelance@gmail.com>",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adrien2p/watson-sea2/issues"
+  },
+  "homepage": "https://github.com/adrien2p/watson-sea2#readme",
   "scripts": {
     "ng": "ng",
     "build": "npm run clean && ng build",
