@@ -1,15 +1,20 @@
 'use strict';
 
+import multer from 'multer';
+
 import SpeechToTextController from './../controller/speechToTextController';
 import LocalTunnelController from './../controller/localTunnelController';
 
 class SocketManagerService {
-    constructor() {}
+    constructor() {
+        this._storage = multer.memoryStorage();
+        this._upload = multer(this._storage);
+    }
 
     /**
      * Initialize socket setup.
      *
-     * @param {Socket} socket
+     * @param {SocketIOClient.Socket} socket
      */
     init(socket) {
         this._setupSocketsSTT(socket);

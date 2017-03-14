@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 
-import {SocketManagerService} from '../shared/service/socket-manager.service';
+import {SocketManagerService} from '../../shared/services/socket-manager.service';
 
 @Injectable()
 export class SpeechToTextService {

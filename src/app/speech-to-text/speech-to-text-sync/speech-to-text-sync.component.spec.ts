@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { SpeechToTextComponent } from './speech-to-text.component';
+import { SpeechToTextSyncComponent } from './speech-to-text-sync.component';
 
-describe('SpeechToTextComponent', () => {
-  let component: SpeechToTextComponent;
-  let fixture: ComponentFixture<SpeechToTextComponent>;
+describe('SpeechToTextSyncComponent', () => {
+  let component: SpeechToTextSyncComponent;
+  let fixture: ComponentFixture<SpeechToTextSyncComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SpeechToTextComponent ]
+      declarations: [ SpeechToTextSyncComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SpeechToTextComponent);
+    fixture = TestBed.createComponent(SpeechToTextSyncComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

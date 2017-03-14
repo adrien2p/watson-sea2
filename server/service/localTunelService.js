@@ -42,7 +42,7 @@ class LocalTunnelService {
      */
     close(socket) {
         this._url = '';
-        this._localTunnel.close();
+        this._localTunnel.close && this._localTunnel.close();
         socket.emit('res-localTunnel-close');
     }
 }

@@ -16,3 +16,18 @@ $icon-font-path: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/";
 @import './assets/styles/loader';
 @import './assets/styles/utilities';
 
+// Global style
+.btn {
+    @extend .btn;
+    height: 4rem;
+
+    &.m-width-lg {
+        min-width: 20rem;
+    }
+}
+
+section {
+    width: 100%;
+
+    &.m-padding { padding: 1rem 0; }
+}

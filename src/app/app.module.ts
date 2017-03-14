@@ -4,31 +4,24 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
-import { SocketManagerService } from './shared/service/socket-manager.service';
-import { LocalTunnelService } from './shared/service/local-tunnel.service';
+import { SpeechToTextModule } from './speech-to-text/speech-to-text.module';
+
+import { SocketManagerService } from './shared/services/socket-manager.service';
 
 import { AppComponent } from './app.component';
-import { SpeechToTextComponent } from './speech-to-text/speech-to-text.component';
 
-const appRoutes: Routes = [
-    { path: 'speech-to-text', component: SpeechToTextComponent },
-];
+const routes: Routes = [];
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        SpeechToTextComponent
-    ],
+    declarations: [AppComponent],
     imports: [
         BrowserModule,
         FormsModule,
         HttpModule,
-        RouterModule.forRoot(appRoutes)
+        RouterModule.forRoot(routes),
+        SpeechToTextModule
     ],
-    providers: [
-        SocketManagerService,
-        LocalTunnelService
-    ],
+    providers: [SocketManagerService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

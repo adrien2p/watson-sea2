@@ -1,8 +1,8 @@
 'use strict';
 
 import fs from 'fs';
-import path from 'path';
 import mime from 'mime';
+import path from 'path';
 
 import { SpeechToTextV1 } from 'watson-developer-cloud';
 import speechToTextConfig from './../config/speech-to-text';
@@ -12,9 +12,9 @@ import speechToTextService from './../service/speechToTextService';
 
 class SpeechToTextController {
     constructor(socket) {
-        this._socket = socket;
+        this._resourcesPath = '../../resources';
 
-        this._resourcesDir = __dirname + '/../../resources';
+        this._socket = socket;
         this._speechToText = new SpeechToTextV1(speechToTextConfig);
         this._callbackUrl = '/stt-callback-results';
     }
@@ -52,30 +52,19 @@ class SpeechToTextController {
      * @param {object} data parameters
      * @param {string} [data.event] recognitions.started|recognitions.completed|recognitions.failed|recognitions.completed_with_results
      * @param {string} [data.user_secret] The token allows the user to maintain an internal mapping between jobs and notification events
-     * @param {string} [data.result_ttl] time to alive of the job result
+     * @param {string} [data.results_ttl] time to alive of the job result
      */
     createRecognitionJob(data) {
         const params = data || {};
 
-        fs.readdir(this._resourcesDir, (err, files) => {
-            let audioFilePath = '';
-            let audioFile = '';
-            files.forEach(file => {
-                if (path.extname(file) === '.ogg' && !audioFilePath) {
-                    audioFile = file;
-                    audioFilePath = `${this._resourcesDir}/${file}`;
-                }
-            });
+        Object.assign(params, {
+            audio: fs.createReadStream(path.resolve(__dirname, `${this._resourcesPath}/weather.ogg`)),
+            content_type: mime.lookup('weather.ogg'),
+            callback_url: `${localTunnelService.url}${this._callbackUrl}`
+        });
 
-            Object.assign(params, {
-                audio: fs.createReadStream(audioFilePath),
-                content_type: mime.lookup(audioFile),
-                callback_url: `${localTunnelService.url}${this._callbackUrl}`
-            });
-
-            this._speechToText.createRecognitionJob(params, (err, res) => {
-                this._socket.emit('res-stt-createRecognitionJob', { err, data: res })
-            });
+        this._speechToText.createRecognitionJob(params, (err, res) => {
+            this._socket.emit('res-stt-createRecognitionJob', { err, data: res })
         });
     }
 
