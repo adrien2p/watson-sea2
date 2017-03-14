@@ -17,6 +17,10 @@ export class SpeechToTextService {
         return this.socketManagerService.speechToTextConfig();
     }
 
+    /*************************************************************************************************************/
+    /*                                        Asynchronous HTTP Interface                                        */
+    /*************************************************************************************************************/
+
     /**
      * Registers a callback URL with the service for use with subsequent asynchronous recognition requests.
      *
@@ -24,7 +28,7 @@ export class SpeechToTextService {
      * @param {string} [user_secret] The token allows the user to maintain an internal mapping between jobs and notification events
      * @returns {Observable<any>}
      */
-    registerCallback(params: {[key: string]: any}): Observable<any> {
+    registerCallback(params?: {[key: string]: any}): Observable<any> {
         return this.socketManagerService.speechToTextRegisterCallback(params);
     }
 
@@ -37,7 +41,7 @@ export class SpeechToTextService {
      * @param {string} [params.result_ttl] time to alive of the job result
      * @returns {Observable<any>}
      */
-    createRecognitionJob(params: {[key: string]: any}): Observable<any> {
+    createRecognitionJob(params?: {[key: string]: any}): Observable<any> {
         return this.socketManagerService.speechToTextCreateRecognitionJob(params);
     }
 
@@ -79,5 +83,13 @@ export class SpeechToTextService {
      */
     deleteRecognitionJob(params: {[key: string]: any}): Observable<any> {
         return this.socketManagerService.speechToTextDeleteRecognitionJob(params);
+    }
+
+    /*************************************************************************************************************/
+    /*                                            REST HTTP Interface                                            */
+    /*************************************************************************************************************/
+
+    recognize(params?: {[key: string]: any}): Observable<any> {
+        return this.socketManagerService.speechToTextRecognize(params);
     }
 }

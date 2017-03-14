@@ -1,15 +1,10 @@
 'use strict';
 
-import multer from 'multer';
-
 import SpeechToTextController from './../controller/speechToTextController';
 import LocalTunnelController from './../controller/localTunnelController';
 
 class SocketManagerService {
-    constructor() {
-        this._storage = multer.memoryStorage();
-        this._upload = multer(this._storage);
-    }
+    constructor() {}
 
     /**
      * Initialize socket setup.
@@ -33,12 +28,17 @@ class SocketManagerService {
      */
     _setupSocketsSTT(socket) {
         const speechToTextController = new SpeechToTextController(socket);
+
+        /* Asynchronous HTTP Interface */
         socket.on('get-stt-config', () => speechToTextController.getConfiguration());
         socket.on('post-stt-registerCallback', (data) => speechToTextController.registerCallback(data));
         socket.on('post-stt-createRecognitionJob', (data) => speechToTextController.createRecognitionJob(data));
         socket.on('get-stt-getRecognitionJobs', () => speechToTextController.getRecognitionJobs());
         socket.on('get-stt-getRecognitionJob', (data) => speechToTextController.getRecognitionJob(data));
         socket.on('delete-stt-deleteRecognitionJob', (data) => speechToTextController.deleteRecognitionJob(data));
+
+        /* HTTP REST Interface */
+        socket.on('post-stt-recognize', (data) => speechToTextController.recognize(data));
     }
 
     /***************************************************************************************************/

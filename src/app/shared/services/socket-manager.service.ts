@@ -102,6 +102,12 @@ export class SocketManagerService {
         return new Observable(observer => this.socket.on('res-stt-deleteRecognitionJob', res => observer.next(res)));
     }
 
+    speechToTextRecognize(params: {[key: string]: any}): Observable<any> {
+        this.socket.emit('post-stt-recognize', params);
+
+        return new Observable(observer => this.socket.on('res-stt-recognize', res => observer.next(res)));
+    }
+
     /***************************************************************************************************/
     /*                                       Local Tunnel                                              */
     /***************************************************************************************************/

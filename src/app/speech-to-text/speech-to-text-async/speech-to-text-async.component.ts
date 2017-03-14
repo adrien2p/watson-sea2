@@ -14,13 +14,13 @@ import { SpeechToTextService } from '../services/speech-to-text.service';
 export class SpeechToTextAsyncComponent implements OnInit, OnDestroy {
     public defaultResponse = 'Nothing to show for now';
 
-    public sttNotifyJobStatusResponse: NotifyResponse;
-    public sttRegisterCallbackResponse: STTResponse;
-    public sttCreateRecognitionJobResponse: STTResponse;
-    public sttGetRecognitionJobsResponse: STTResponse;
-    public sttGetRecognitionJobResponse: STTResponse;
-    public sttDeleteRecognitionJobResponse: STTResponse;
-    public localTunnelResponse : LocalTunnelResponse;
+    public sttNotifyJobStatusResponse: NotifyResponse = {};
+    public sttRegisterCallbackResponse: STTResponse = {};
+    public sttCreateRecognitionJobResponse: STTResponse = {};
+    public sttGetRecognitionJobsResponse: STTResponse = {};
+    public sttGetRecognitionJobResponse: STTResponse = {};
+    public sttDeleteRecognitionJobResponse: STTResponse = {};
+    public localTunnelResponse: LocalTunnelResponse = {};
 
     public userSecret: string;
     public userToken: string;
@@ -45,7 +45,7 @@ export class SpeechToTextAsyncComponent implements OnInit, OnDestroy {
             this.sttNotifyJobStatusResponse.originalData = res.err || res.data;
             this.sttNotifyJobStatusResponse.data = JSON.stringify((res.err || res.data), null, 4);
             this.sttCreateRecognitionJobResponse.data += '\n\nJob status notification :\n\n';
-            this.sttCreateRecognitionJobResponse.data += this.sttNotifyJobStatusResponse.data
+            this.sttCreateRecognitionJobResponse.data += this.sttNotifyJobStatusResponse.data;
         });
     }
 
@@ -72,10 +72,12 @@ export class SpeechToTextAsyncComponent implements OnInit, OnDestroy {
      * Allow to close a local tunnel.
      */
     public localTunnelClose(): void {
-        this.localTunnelResponse.ready && this.localTunnelService.close().subscribe(() => {
-            this.localTunnelResponse.ready = false;
-            this.localTunnelResponse.url = null;
-        });
+        if (this.localTunnelResponse.ready) {
+            this.localTunnelService.close().subscribe(() => {
+                this.localTunnelResponse.ready = false;
+                this.localTunnelResponse.url = null;
+            });
+        }
     }
 
     /**

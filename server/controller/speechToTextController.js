@@ -26,6 +26,10 @@ class SpeechToTextController {
         this._socket.emit('res-stt-config', { data: speechToTextConfig });
     }
 
+    /*************************************************************************************************************/
+    /*                                        Asynchronous HTTP Interface                                        */
+    /*************************************************************************************************************/
+
     /**
      * Registers a callback URL with the service for use with subsequent asynchronous recognition requests.
      *
@@ -142,6 +146,42 @@ class SpeechToTextController {
      */
     notifyJobStatus(req, res) {
         req.io.emit('res-stt-notifyJobStatus', { data: req.body });
+    }
+
+    /*************************************************************************************************************/
+    /*                                          REST HTTP Interface                                              */
+    /*************************************************************************************************************/
+
+    /**
+     * Speech recognition for given audio using default model.
+     *
+     * @param {Object} data parameters
+     * @param {Boolean} [data.continuous],
+     * @param {Number} [data.max_alternatives],
+     * @param {Boolean} [data.timestamps],
+     * @param {Boolean} [data.word_confidence],
+     * @param {Number} [data.inactivity_timeout],
+     * @param {String} [data.model],
+     * @param {Boolean} [data.interim_results],
+     * @param {Boolean} [data.keywords],
+     * @param {Number} [data.keywords_threshold],
+     * @param {Number} [data.word_alternatives_threshold],
+     * @param {Boolean} [data.profanity_filter],
+     * @param {Boolean} [data.smart_formatting],
+     * @param {String} [data.customization_id],
+     * @param {Boolean} [data.speaker_labels]
+     */
+    recognize(data) {
+        const params = data || {};
+
+        Object.assign(params, {
+            audio: fs.createReadStream(path.resolve(__dirname, `${this._resourcesPath}/weather.ogg`)),
+            content_type: mime.lookup('weather.ogg')
+        });
+
+        this._speechToText.recognize(params, (err, res) => {
+            this._socket.emit('res-stt-recognize', { err, data: res });
+        });
     }
 }
 

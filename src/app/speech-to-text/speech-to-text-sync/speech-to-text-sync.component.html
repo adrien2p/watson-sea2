@@ -1,5 +1,15 @@
 <section>
-    <p>
-        Not yet implemented
-    </p>
+    <section class="animated-hover-shadow-radial m-padding">
+        <h5>Recognize</h5>
+
+        <div class="Flex">
+            <button (click)="recognize()" class="btn btn-info u-margin-bottom m-width-lg Flex m-justify-center">
+                Register a new callback url
+                <span *ngIf=" sttRecognizeResponse.isLoading"
+                      class="glyphicon glyphicon-repeat normal-right-spinner Flex-align-item-center u-margin-left">
+                    </span>
+            </button>
+            <pre class="prettyprint Flex-1 u-margin-left" [innerHtml]=" sttRecognizeResponse.data || defaultResponse"></pre>
+        </div>
+    </section>
 </section>
