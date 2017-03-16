@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
+import { APP_BASE_HREF } from '@angular/common';
 
 import { SpeechToTextModule } from './speech-to-text/speech-to-text.module';
 
@@ -21,7 +22,10 @@ const routes: Routes = [];
         RouterModule.forRoot(routes),
         SpeechToTextModule
     ],
-    providers: [SocketManagerService],
+    providers: [
+        { provide: APP_BASE_HREF, useValue: '/' },
+        SocketManagerService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

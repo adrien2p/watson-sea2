@@ -1,3 +1,3 @@
-# Watson-sea2-sample
+# Watson-sea2
 
 WIP

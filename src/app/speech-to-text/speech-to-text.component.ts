@@ -16,10 +16,9 @@ export class SpeechToTextComponent implements OnInit {
 
     ngOnInit() {
         this.speechToTextService.getConfig().subscribe(res => {
-            if (res.err) {
-                return;
+            if (!res.err) {
+                this.config = JSON.stringify(res.data, null, 4);
             }
-            this.config = JSON.stringify(res.data, null, 4);
         });
     }
 }

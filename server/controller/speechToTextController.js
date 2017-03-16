@@ -57,6 +57,20 @@ class SpeechToTextController {
      * @param {string} [data.event] recognitions.started|recognitions.completed|recognitions.failed|recognitions.completed_with_results
      * @param {string} [data.user_secret] The token allows the user to maintain an internal mapping between jobs and notification events
      * @param {string} [data.results_ttl] time to alive of the job result
+     * @param {Boolean} [data.continuous],
+     * @param {Number} [data.max_alternatives],
+     * @param {Boolean} [data.timestamps],
+     * @param {Boolean} [data.word_confidence],
+     * @param {Number} [data.inactivity_timeout],
+     * @param {String} [data.model],
+     * @param {Boolean} [data.interim_results],
+     * @param {Boolean} [data.keywords],
+     * @param {Number} [data.keywords_threshold],
+     * @param {Number} [data.word_alternatives_threshold],
+     * @param {Boolean} [data.profanity_filter],
+     * @param {Boolean} [data.smart_formatting],
+     * @param {String} [data.customization_id],
+     * @param {Boolean} [data.speaker_labels]
      */
     createRecognitionJob(data) {
         const params = data || {};
