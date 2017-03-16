@@ -27,7 +27,7 @@ export class SpeechToTextAsyncComponent implements OnInit, OnDestroy {
     public resultsTTL: number;
     public jobIdToGet: number;
     public jobIdToDelete: number;
-    public jobStatusEvent: string;
+    public jobStatusEvents: string;
 
     public STATUS_EVENTS = [
         'recognitions.started',
@@ -99,7 +99,7 @@ export class SpeechToTextAsyncComponent implements OnInit, OnDestroy {
         this.sttCreateRecognitionJobResponse.isLoading = true;
 
         const params = {
-            event: this.jobStatusEvent || this.STATUS_EVENTS.join(','),
+            events: this.jobStatusEvents || this.STATUS_EVENTS.join(','),
             user_token: this.userToken,
             results_ttl: this.resultsTTL
         };
