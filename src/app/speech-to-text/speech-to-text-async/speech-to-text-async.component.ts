@@ -41,7 +41,7 @@ export class SpeechToTextAsyncComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.speechToTextService.speechToTextNotifyJobStatus().subscribe((res) => {
+        this.speechToTextService.notifyJobStatus().subscribe((res) => {
             this.sttNotifyJobStatusResponse.originalData = res.err || res.data;
             this.sttNotifyJobStatusResponse.data = JSON.stringify((res.err || res.data), null, 4);
             this.sttCreateRecognitionJobResponse.data += '\n\nJob status notification :\n\n';
@@ -59,12 +59,11 @@ export class SpeechToTextAsyncComponent implements OnInit, OnDestroy {
     public localTunnelStart(): void {
         this.localTunnelResponse.isLoading = true;
         this.localTunnelService.start().subscribe(res => {
-            if (res.err) {
-                return;
+            if (!res.err) {
+                this.localTunnelResponse.isLoading = false;
+                this.localTunnelResponse.ready = true;
+                this.localTunnelResponse.url = res.url;
             }
-            this.localTunnelResponse.isLoading = false;
-            this.localTunnelResponse.ready = true;
-            this.localTunnelResponse.url = res.url;
         });
     }
 
@@ -74,6 +73,7 @@ export class SpeechToTextAsyncComponent implements OnInit, OnDestroy {
     public localTunnelClose(): void {
         if (this.localTunnelResponse.ready) {
             this.localTunnelService.close().subscribe(() => {
+                this.localTunnelResponse.isLoading = false;
                 this.localTunnelResponse.ready = false;
                 this.localTunnelResponse.url = null;
             });

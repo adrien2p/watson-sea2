@@ -50,7 +50,7 @@ export class SpeechToTextService {
      *
      * @returns {Observable<any>}
      */
-    speechToTextNotifyJobStatus(): Observable<any> {
+    notifyJobStatus(): Observable<any> {
         return this.socketManagerService.speechToTextNotifyJobStatus();
     }
 

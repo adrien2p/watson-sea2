@@ -6,9 +6,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { APP_BASE_HREF } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { LocalTunnelService } from '../shared/services/local-tunnel.service';
 import { SocketManagerService } from '../shared/services/socket-manager.service';
@@ -34,13 +32,6 @@ const routes: Routes = [
 describe('SpeechToTextComponent', () => {
     let component: SpeechToTextComponent;
     let fixture: ComponentFixture<SpeechToTextComponent>;
-    const sttConfig = {
-        url: 'https://stream.watsonplatform.net/speech-to-text/api',
-        username: '<usename>',
-        password: '<password>',
-        version: 'v1',
-        silent: false
-    };
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -83,6 +74,6 @@ describe('SpeechToTextComponent', () => {
         component.ngOnInit();
         fixture.detectChanges();
 
-        expect(component.config).toBe(JSON.stringify(sttConfig, null, 4));
+        expect(component.config).toBe(JSON.stringify(MockSpeechToTextService.fakeConfigResponse, null, 4));
     });
 });
