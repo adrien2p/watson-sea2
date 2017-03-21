@@ -7,8 +7,8 @@ import { SpeechToTextService } from '../services/speech-to-text.service';
 
 @Component({
     selector: 'app-speech-to-text-async',
-    templateUrl: './speech-to-text-async.component.html',
-    styleUrls: ['./speech-to-text-async.component.scss'],
+    templateUrl: 'speech-to-text-async.component.html',
+    styleUrls: ['speech-to-text-async.component.scss'],
     providers: [LocalTunnelService, SpeechToTextService]
 })
 export class SpeechToTextAsyncComponent implements OnInit, OnDestroy {

@@ -6,8 +6,8 @@ import { SpeechToTextService } from '../services/speech-to-text.service';
 
 @Component({
     selector: 'app-speech-to-text-sync',
-    templateUrl: './speech-to-text-sync.component.html',
-    styleUrls: ['./speech-to-text-sync.component.scss']
+    templateUrl: 'speech-to-text-sync.component.html',
+    styleUrls: ['speech-to-text-sync.component.scss']
 })
 export class SpeechToTextSyncComponent implements OnInit {
     public defaultResponse = 'Nothing to show for now';

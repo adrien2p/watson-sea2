@@ -102,6 +102,11 @@ export class SocketManagerService {
         return new Observable(observer => this.socket.on('res-stt-deleteRecognitionJob', res => observer.next(res)));
     }
 
+    /**
+     * TODO
+     * @param params
+     * @returns {Observable|"../../Observable".Observable|"../../../Observable".Observable}
+     */
     speechToTextRecognize(params: {[key: string]: any}): Observable<any> {
         this.socket.emit('post-stt-recognize', params);
 
