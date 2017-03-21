@@ -4,6 +4,7 @@ import { SocketManagerService } from '../../shared/services/socket-manager.servi
 import { SpeechToTextService } from './speech-to-text.service';
 
 import { MockSocketManagerService } from '../../shared/tests/mocks/mock-socket-manager.service';
+import {Observable} from "rxjs";
 
 describe('SpeechToTextService', () => {
     beforeEach(() => {
@@ -26,44 +27,56 @@ describe('SpeechToTextService', () => {
     }));
 
     it('should return an observable with the config result', inject([SpeechToTextService], (service: SpeechToTextService) => {
-        service.getConfig().subscribe(res => {
+        const res = service.getConfig();
+
+        expect(typeof res.subscribe).toBe('function');
+        res.subscribe(res => {
             expect(res.data).toBe(MockSocketManagerService.fakeConfigResponse);
         });
     }));
 
     it('should return an observable with the register callback result', inject([SpeechToTextService], (service: SpeechToTextService) => {
-        service.registerCallback().subscribe(res => {
+        const res = service.registerCallback();
+
+        expect(typeof res.subscribe).toBe('function');
+        res.subscribe(res => {
             expect(res.data).toBe(MockSocketManagerService.fakeRegisterCallbackResponse);
         });
     }));
 
     it('should return an observable create recognition result', inject([SpeechToTextService], (service: SpeechToTextService) => {
-        service.createRecognitionJob().subscribe(res => {
+        const res = service.createRecognitionJob();
+
+        expect(typeof res.subscribe).toBe('function');
+        res.subscribe(res => {
             expect(res.data).toBe(MockSocketManagerService.fakeCreateRecognitionJobResponse);
         });
     }));
 
     it('should return an observable with recognition jobs result', inject([SpeechToTextService], (service: SpeechToTextService) => {
-        service.getRecognitionJobs().subscribe(res => {
+        const res = service.getRecognitionJobs();
+
+        expect(typeof res.subscribe).toBe('function');
+        res.subscribe(res => {
             expect(res.data).toBe(MockSocketManagerService.fakeGetRecognitionJobsResponse);
         });
     }));
 
     it('should return an observable with the recognition job result', inject([SpeechToTextService], (service: SpeechToTextService) => {
-        service.getRecognitionJob({ id: '4bd734c0-e575-21f3-de03-f932aa0468a0' }).subscribe(res => {
+        const res = service.getRecognitionJob({ id: '4bd734c0-e575-21f3-de03-f932aa0468a0' });
+
+        expect(typeof res.subscribe).toBe('function');
+        res.subscribe(res => {
             expect(res.data).toBe(MockSocketManagerService.fakeGetRecognitionJobResponse);
         });
     }));
 
     it('should return an observable with the delete recognition job result', inject([SpeechToTextService], (service: SpeechToTextService) => {
-        service.deleteRecognitionJob({ id: '4bd734c0-e575-21f3-de03-f932aa0468a0' }).subscribe(res => {
-            expect(res.data).toBe(MockSocketManagerService.fakeDeleteRecognitionJobResponse);
-        });
-    }));
+        const res = service.deleteRecognitionJob({ id: '4bd734c0-e575-21f3-de03-f932aa0468a0' });
 
-    it('should return an observable with the config result', inject([SpeechToTextService], (service: SpeechToTextService) => {
-        service.getConfig().subscribe(res => {
-            expect(res.data).toBe(MockSocketManagerService.fakeConfigResponse);
+        expect(typeof res.subscribe).toBe('function');
+        res.subscribe(res => {
+            expect(res.data).toBe(MockSocketManagerService.fakeDeleteRecognitionJobResponse);
         });
     }));
 });
