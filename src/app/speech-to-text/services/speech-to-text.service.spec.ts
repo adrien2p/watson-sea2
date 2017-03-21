@@ -4,7 +4,6 @@ import { SocketManagerService } from '../../shared/services/socket-manager.servi
 import { SpeechToTextService } from './speech-to-text.service';
 
 import { MockSocketManagerService } from '../../shared/tests/mocks/mock-socket-manager.service';
-import {Observable} from "rxjs";
 
 describe('SpeechToTextService', () => {
     beforeEach(() => {
