@@ -24,7 +24,7 @@
   "scripts": {
     "ng": "ng",
     "build": "npm run clean && ng build",
-    "test": "ng test -cc --watch false && cat ./coverage/coverage.lcov | coveralls",
+    "test": "ng test -cc --watch false && cat ./coverage/coverage.lcov | ./node_modules/.bin/coveralls",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "clean": "rm -rf dist",
