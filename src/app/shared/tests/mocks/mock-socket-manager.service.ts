@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/Observable/of';
 
 @Injectable()
 export class MockSocketManagerService {
