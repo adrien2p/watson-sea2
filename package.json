@@ -1,6 +1,6 @@
 {
   "name": "watson-sea2",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Socket.io - Express And Angular 2 app to expose sample of how to use watson, it's also a testing environment",
   "repository": {
     "type": "git",
@@ -24,7 +24,7 @@
   "scripts": {
     "ng": "ng",
     "build": "npm run clean && ng build",
-    "test": "ng test -cc --watch false",
+    "test": "ng test -cc --watch false && cat ./coverage/coverage.lcov | coveralls",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "clean": "rm -rf dist",
@@ -69,6 +69,7 @@
     "babel-cli": "^6.23.0",
     "babel-preset-es2015": "^6.22.0",
     "codelyzer": "~2.0.0",
+    "coveralls": "^2.12.0",
     "jasmine-core": "~2.5.2",
     "jasmine-spec-reporter": "~3.2.0",
     "karma": "~1.4.1",
