@@ -24,7 +24,7 @@
   "scripts": {
     "ng": "ng",
     "build": "npm run clean && ng build",
-    "test": "ng test -cc",
+    "test": "ng test -cc --watch false",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "clean": "rm -rf dist",
