@@ -13,6 +13,15 @@ export class SocketManagerService {
         this.socket = io();
     }
 
+    /**
+     * Update socket with another instance.
+     *
+     * @param {any} value
+     */
+    updateSocket(value) {
+        this.socket = value;
+    }
+
     /***************************************************************************************************/
     /*                                       Speech to text                                            */
     /***************************************************************************************************/
@@ -100,17 +109,6 @@ export class SocketManagerService {
         this.socket.emit('delete-stt-deleteRecognitionJob', params);
 
         return new Observable(observer => this.socket.on('res-stt-deleteRecognitionJob', res => observer.next(res)));
-    }
-
-    /**
-     * TODO
-     * @param params
-     * @returns {Observable|"../../Observable".Observable|"../../../Observable".Observable}
-     */
-    speechToTextRecognize(params: {[key: string]: any}): Observable<any> {
-        this.socket.emit('post-stt-recognize', params);
-
-        return new Observable(observer => this.socket.on('res-stt-recognize', res => observer.next(res)));
     }
 
     /***************************************************************************************************/

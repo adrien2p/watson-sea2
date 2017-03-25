@@ -168,13 +168,4 @@ export class MockSpeechToTextService {
             data: MockSpeechToTextService.fakeDeleteRecognitionJobResponse
         }));
     }
-
-    /**
-     * Mock method
-     *
-     * @returns {Observable<any>}
-     */
-    recognize(params: {[key: string]: any}): Observable<any> {
-        return new Observable(observer => observer.next({}));
-    }
 }

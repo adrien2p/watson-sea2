@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/Observable/of';
 
 @Injectable()
 export class MockSocketManagerService {
@@ -143,6 +144,17 @@ export class MockSocketManagerService {
      */
     speechToTextGetRecognitionJob(): Observable<any> {
         return new Observable(observer => observer.next({
+            data: MockSocketManagerService.fakeGetRecognitionJobResponse
+        }));
+    }
+
+    /**
+     * Mock method
+     *
+     * @returns {Observable<any>}
+     */
+    speechToTextGetRecognitionJobs(): Observable<any> {
+        return new Observable(observer => observer.next({
             data: MockSocketManagerService.fakeGetRecognitionJobsResponse
         }));
     }
@@ -154,27 +166,7 @@ export class MockSocketManagerService {
      */
     speechToTextDeleteRecognitionJob(params: {[key: string]: any}): Observable<any> {
         return new Observable(observer => observer.next({
-            data: MockSocketManagerService.fakeGetRecognitionJobResponse
-        }));
-    }
-
-    /**
-     * Mock method
-     *
-     * @returns {Observable<any>}
-     */
-    speechToTextRecognize(params: {[key: string]: any}): Observable<any> {
-        return new Observable(observer => observer.next({
             data: MockSocketManagerService.fakeDeleteRecognitionJobResponse
         }));
-    }
-
-    /**
-     * Mock method
-     *
-     * @returns {Observable<any>}
-     */
-    recognize(params: {[key: string]: any}): Observable<any> {
-        return new Observable(observer => observer.next({}));
     }
 }

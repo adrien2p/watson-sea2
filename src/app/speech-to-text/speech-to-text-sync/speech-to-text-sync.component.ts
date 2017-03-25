@@ -19,13 +19,4 @@ export class SpeechToTextSyncComponent implements OnInit {
 
     ngOnInit() {
     }
-
-    public recognize(): void {
-        this.sttRecognizeResponse.isLoading = true;
-        this.speechToTextService.recognize().subscribe((res) => {
-            this.sttRecognizeResponse.isLoading = false;
-            this.sttRecognizeResponse.originalData = res.err || res.data;
-            this.sttRecognizeResponse.data = JSON.stringify((res.err || res.data), null, 4);
-        });
-    }
 }

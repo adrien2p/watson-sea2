@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  - "6.1"
+
+before_install:
+  - npm install -g npm
+  - npm install -g angular-cli
+  - npm install -g karma
+  - npm install
+
+after_success:
+  - npm run test
+
+notifications:
+  email:
+    - adrien.deperetti.freelance@gmail.com

@@ -88,8 +88,5 @@ export class SpeechToTextService {
     /*************************************************************************************************************/
     /*                                            REST HTTP Interface                                            */
     /*************************************************************************************************************/
-
-    recognize(params?: {[key: string]: any}): Observable<any> {
-        return this.socketManagerService.speechToTextRecognize(params);
-    }
+    /* TODO */
 }

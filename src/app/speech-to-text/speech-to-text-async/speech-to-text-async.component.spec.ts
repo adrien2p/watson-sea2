@@ -2,7 +2,7 @@ import {
     async,
     fakeAsync,
     ComponentFixture,
-    TestBed
+    TestBed, tick
 } from '@angular/core/testing';
 
 import { FormsModule } from '@angular/forms';
@@ -50,24 +50,24 @@ describe('SpeechToTextAsyncComponent', () => {
     describe('should start local tunnel', () => {
         it('and fill the localTunnelResponse member', fakeAsync(() => {
             component.localTunnelStart();
-            fixture.detectChanges();
+            tick();
 
-            expect(component.localTunnelResponse.url).toBe('https://localtunnel.me');
-            expect(component.localTunnelResponse.ready).toBe(true);
-            expect(component.localTunnelResponse.isLoading).toBe(false);
+            expect(component.localTunnelResponse.url).toEqual('https://localtunnel.me');
+            expect(component.localTunnelResponse.ready).toEqual(true);
+            expect(component.localTunnelResponse.isLoading).toEqual(false);
         }));
     });
 
     describe('should close local tunnel', () => {
         it('and reset the localTunnelResponse member', fakeAsync(() => {
             component.localTunnelStart();
-            fixture.detectChanges();
+            tick();
             component.localTunnelClose();
-            fixture.detectChanges();
+            tick();
 
-            expect(component.localTunnelResponse.url).toBe(null);
-            expect(component.localTunnelResponse.ready).toBe(false);
-            expect(component.localTunnelResponse.isLoading).toBe(false);
+            expect(component.localTunnelResponse.url).toEqual(null);
+            expect(component.localTunnelResponse.ready).toEqual(false);
+            expect(component.localTunnelResponse.isLoading).toEqual(false);
         }));
     });
 
@@ -75,44 +75,44 @@ describe('SpeechToTextAsyncComponent', () => {
         component.registerCallback();
         fixture.detectChanges();
 
-        expect(component.sttRegisterCallbackResponse.originalData).toBe(MockSpeechToTextService.fakeRegisterCallbackResponse);
-        expect(component.sttRegisterCallbackResponse.data).toBe(JSON.stringify(MockSpeechToTextService.fakeRegisterCallbackResponse, null, 4));
-        expect(component.sttRegisterCallbackResponse.isLoading).toBe(false);
+        expect(component.sttRegisterCallbackResponse.originalData).toEqual(MockSpeechToTextService.fakeRegisterCallbackResponse);
+        expect(component.sttRegisterCallbackResponse.data).toEqual(JSON.stringify(MockSpeechToTextService.fakeRegisterCallbackResponse, null, 4));
+        expect(component.sttRegisterCallbackResponse.isLoading).toEqual(false);
     }));
 
     it('should allow to create a new registration job', fakeAsync(() => {
         component.createRecognitionJob();
         fixture.detectChanges();
 
-        expect(component.sttCreateRecognitionJobResponse.originalData).toBe(MockSpeechToTextService.fakeCreateRecognitionJobResponse);
-        expect(component.sttCreateRecognitionJobResponse.data).toBe(JSON.stringify(MockSpeechToTextService.fakeCreateRecognitionJobResponse, null, 4));
-        expect(component.sttCreateRecognitionJobResponse.isLoading).toBe(false);
+        expect(component.sttCreateRecognitionJobResponse.originalData).toEqual(MockSpeechToTextService.fakeCreateRecognitionJobResponse);
+        expect(component.sttCreateRecognitionJobResponse.data).toEqual(JSON.stringify(MockSpeechToTextService.fakeCreateRecognitionJobResponse, null, 4));
+        expect(component.sttCreateRecognitionJobResponse.isLoading).toEqual(false);
     }));
 
     it('should allow to get all jobs', fakeAsync(() => {
         component.getRecognitionJobs();
         fixture.detectChanges();
 
-        expect(component.sttGetRecognitionJobsResponse.originalData).toBe(MockSpeechToTextService.fakeGetRecognitionJobsResponse);
-        expect(component.sttGetRecognitionJobsResponse.data).toBe(JSON.stringify(MockSpeechToTextService.fakeGetRecognitionJobsResponse, null, 4));
-        expect(component.sttGetRecognitionJobsResponse.isLoading).toBe(false);
+        expect(component.sttGetRecognitionJobsResponse.originalData).toEqual(MockSpeechToTextService.fakeGetRecognitionJobsResponse);
+        expect(component.sttGetRecognitionJobsResponse.data).toEqual(JSON.stringify(MockSpeechToTextService.fakeGetRecognitionJobsResponse, null, 4));
+        expect(component.sttGetRecognitionJobsResponse.isLoading).toEqual(false);
     }));
 
     it('should allow to get a job', fakeAsync(() => {
         component.getRecognitionJob();
         fixture.detectChanges();
 
-        expect(component.sttGetRecognitionJobResponse.originalData).toBe(MockSpeechToTextService.fakeGetRecognitionJobResponse);
-        expect(component.sttGetRecognitionJobResponse.data).toBe(JSON.stringify(MockSpeechToTextService.fakeGetRecognitionJobResponse, null, 4));
-        expect(component.sttGetRecognitionJobResponse.isLoading).toBe(false);
+        expect(component.sttGetRecognitionJobResponse.originalData).toEqual(MockSpeechToTextService.fakeGetRecognitionJobResponse);
+        expect(component.sttGetRecognitionJobResponse.data).toEqual(JSON.stringify(MockSpeechToTextService.fakeGetRecognitionJobResponse, null, 4));
+        expect(component.sttGetRecognitionJobResponse.isLoading).toEqual(false);
     }));
 
     it('should allow to delete a job', fakeAsync(() => {
         component.deleteRecognitionJob();
         fixture.detectChanges();
 
-        expect(component.sttDeleteRecognitionJobResponse.originalData).toBe(MockSpeechToTextService.fakeDeleteRecognitionJobResponse);
-        expect(component.sttDeleteRecognitionJobResponse.data).toBe(JSON.stringify(MockSpeechToTextService.fakeDeleteRecognitionJobResponse, null, 4));
-        expect(component.sttDeleteRecognitionJobResponse.isLoading).toBe(false);
+        expect(component.sttDeleteRecognitionJobResponse.originalData).toEqual(MockSpeechToTextService.fakeDeleteRecognitionJobResponse);
+        expect(component.sttDeleteRecognitionJobResponse.data).toEqual(JSON.stringify(MockSpeechToTextService.fakeDeleteRecognitionJobResponse, null, 4));
+        expect(component.sttDeleteRecognitionJobResponse.isLoading).toEqual(false);
     }));
 });
