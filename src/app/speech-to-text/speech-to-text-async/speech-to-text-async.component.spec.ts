@@ -4,6 +4,7 @@ import {
     ComponentFixture,
     TestBed, tick
 } from '@angular/core/testing';
+import { ModalModule } from 'ng2-bootstrap';
 
 import { FormsModule } from '@angular/forms';
 import { SocketManagerService } from '../../shared/services/socket-manager.service';
@@ -21,7 +22,10 @@ describe('SpeechToTextAsyncComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [SpeechToTextAsyncComponent],
-            imports: [FormsModule],
+            imports: [
+                FormsModule,
+                ModalModule.forRoot(),
+            ],
             providers: [
                 SpeechToTextService,
                 SocketManagerService,

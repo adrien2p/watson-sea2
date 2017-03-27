@@ -1,9 +1,7 @@
 /* tslint:disable:no-unused-variable */
 
-import { before } from "selenium-webdriver/testing";
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { ModalModule } from 'ng2-bootstrap';
 
 import { APP_BASE_HREF } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -17,6 +15,7 @@ import { SpeechToTextSyncComponent } from './speech-to-text-sync/speech-to-text-
 import { SpeechToTextWsComponent } from './speech-to-text-ws/speech-to-text-ws.component';
 
 import { MockSpeechToTextService } from '../shared/tests/mocks/mock-speech-to-text.service';
+import {ModalModule} from "ng2-bootstrap";
 
 const routes: Routes = [
     { path: 'speech-to-text', component: SpeechToTextComponent,
@@ -43,6 +42,7 @@ describe('SpeechToTextComponent', () => {
             ],
             imports: [
                 FormsModule,
+                ModalModule.forRoot(),
                 RouterModule.forRoot(routes)
             ],
             providers: [
