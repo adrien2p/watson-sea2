@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
+import { ModalModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { LocalTunnelService } from '../shared/services/local-tunnel.service';
 
@@ -33,6 +34,7 @@ const routes: Routes = [
         BrowserModule,
         FormsModule,
         HttpModule,
+        ModalModule.forRoot(),
         RouterModule.forRoot(routes)
     ],
     exports: [

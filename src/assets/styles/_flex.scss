@@ -2,7 +2,12 @@
     display: flex;
 
     &.m-justify-center { justify-content: center; }
-
-    & .Flex-1 { flex: 1; }
-    & .Flex-align-items-center { align-items: center; }
 }
+
+.Flex-align-items-center { align-items: center; }
+
+.Flex-1 { flex: 1; }
+
+.Flex-column { flex-direction: column; }
+
+.Flex-row { flex-direction: row; }
