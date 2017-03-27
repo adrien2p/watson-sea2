@@ -1,6 +1,6 @@
 {
   "name": "watson-sea2",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Socket.io - Express And Angular 2 app to expose sample of how to use watson, it's also a testing environment",
   "repository": {
     "type": "git",
