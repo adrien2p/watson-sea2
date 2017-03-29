@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, tick} from '@angular/core/testing';
 import { ModalModule } from 'ng2-bootstrap';
 
 import { APP_BASE_HREF } from '@angular/common';
@@ -15,7 +15,6 @@ import { SpeechToTextSyncComponent } from './speech-to-text-sync/speech-to-text-
 import { SpeechToTextWsComponent } from './speech-to-text-ws/speech-to-text-ws.component';
 
 import { MockSpeechToTextService } from '../shared/tests/mocks/mock-speech-to-text.service';
-import {ModalModule} from "ng2-bootstrap";
 
 const routes: Routes = [
     { path: 'speech-to-text', component: SpeechToTextComponent,

@@ -1,8 +1,11 @@
+import { By } from "@angular/platform-browser";
+import { DebugElement } from "@angular/core";
 import {
     async,
     fakeAsync,
     ComponentFixture,
-    TestBed, tick
+    TestBed,
+    tick
 } from '@angular/core/testing';
 import { ModalModule } from 'ng2-bootstrap';
 
@@ -16,8 +19,17 @@ import { MockSpeechToTextService } from '../../shared/tests/mocks/mock-speech-to
 import { MockLocalTunnelService } from '../../shared/tests/mocks/mock-local-tunnel.service';
 
 describe('SpeechToTextAsyncComponent', () => {
+    let buttons: DebugElement[];
     let component: SpeechToTextAsyncComponent;
     let fixture: ComponentFixture<SpeechToTextAsyncComponent>;
+    const parameters = {
+        userSecret: { show: false, value: null, types: ['registerCallback', 'createRecognitionJob'] },
+        userToken: { show: false, value: null, types: ['createRecognitionJob'] },
+        resultsTTL: { show: false, value: null, types: ['createRecognitionJob'] },
+        jobIdToGet: { show: false, value: null, types: ['getJob'] },
+        jobIdToDelete: { show: false, value: null, types: ['deleteJob'] },
+        jobStatusEvents: { show: false, value: null, types: ['createRecognitionJob'] }
+    };
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -44,7 +56,8 @@ describe('SpeechToTextAsyncComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(SpeechToTextAsyncComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
+        buttons = fixture.debugElement.queryAll(By.css('button'));
+        fixture.detectChanges()
     });
 
     it('should create', () => {
@@ -75,9 +88,37 @@ describe('SpeechToTextAsyncComponent', () => {
         }));
     });
 
+    it('should update parameters object on modal opening', async(() => {
+        expect(component.parameters).toEqual(parameters);
+        expect(component.isModalOpen).toEqual(undefined);
+
+        const openModalButton = fixture.nativeElement.querySelector('#registerCallbackOpenModal');
+        openModalButton.click();
+        fixture.detectChanges();
+
+        expect(component.parameters.userSecret.show).toEqual(true);
+        expect(component.isModalOpen).toEqual(true);
+    }));
+
+    it('should turn to false isModalOpen on modal closing', async(() => {
+        expect(component.isModalOpen).toEqual(undefined);
+
+        const openModalButton = fixture.nativeElement.querySelector('#registerCallbackOpenModal');
+        openModalButton.click();
+        fixture.detectChanges();
+
+        expect(component.isModalOpen).toEqual(true);
+
+        const closeButton = fixture.nativeElement.querySelector('#closeModal');
+        closeButton.click();
+        fixture.detectChanges();
+
+        expect(component.isModalOpen).toEqual(false);
+    }));
+
     it('should allow to register a new callback url', fakeAsync(() => {
         component.registerCallback();
-        fixture.detectChanges();
+        tick();
 
         expect(component.sttRegisterCallbackResponse.originalData).toEqual(MockSpeechToTextService.fakeRegisterCallbackResponse);
         expect(component.sttRegisterCallbackResponse.data).toEqual(JSON.stringify(MockSpeechToTextService.fakeRegisterCallbackResponse, null, 4));
@@ -86,7 +127,7 @@ describe('SpeechToTextAsyncComponent', () => {
 
     it('should allow to create a new registration job', fakeAsync(() => {
         component.createRecognitionJob();
-        fixture.detectChanges();
+        tick();
 
         expect(component.sttCreateRecognitionJobResponse.originalData).toEqual(MockSpeechToTextService.fakeCreateRecognitionJobResponse);
         expect(component.sttCreateRecognitionJobResponse.data).toEqual(JSON.stringify(MockSpeechToTextService.fakeCreateRecognitionJobResponse, null, 4));
@@ -95,7 +136,7 @@ describe('SpeechToTextAsyncComponent', () => {
 
     it('should allow to get all jobs', fakeAsync(() => {
         component.getRecognitionJobs();
-        fixture.detectChanges();
+        tick();
 
         expect(component.sttGetRecognitionJobsResponse.originalData).toEqual(MockSpeechToTextService.fakeGetRecognitionJobsResponse);
         expect(component.sttGetRecognitionJobsResponse.data).toEqual(JSON.stringify(MockSpeechToTextService.fakeGetRecognitionJobsResponse, null, 4));
@@ -104,7 +145,7 @@ describe('SpeechToTextAsyncComponent', () => {
 
     it('should allow to get a job', fakeAsync(() => {
         component.getRecognitionJob();
-        fixture.detectChanges();
+        tick();
 
         expect(component.sttGetRecognitionJobResponse.originalData).toEqual(MockSpeechToTextService.fakeGetRecognitionJobResponse);
         expect(component.sttGetRecognitionJobResponse.data).toEqual(JSON.stringify(MockSpeechToTextService.fakeGetRecognitionJobResponse, null, 4));
@@ -113,7 +154,7 @@ describe('SpeechToTextAsyncComponent', () => {
 
     it('should allow to delete a job', fakeAsync(() => {
         component.deleteRecognitionJob();
-        fixture.detectChanges();
+        tick();
 
         expect(component.sttDeleteRecognitionJobResponse.originalData).toEqual(MockSpeechToTextService.fakeDeleteRecognitionJobResponse);
         expect(component.sttDeleteRecognitionJobResponse.data).toEqual(JSON.stringify(MockSpeechToTextService.fakeDeleteRecognitionJobResponse, null, 4));
