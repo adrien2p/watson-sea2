@@ -24,6 +24,6 @@ export class MockLocalTunnelService {
      * @returns {Observable<any>}
      */
     close(): Observable<any> {
-        return new Observable(observer => observer.next({}));
+        return new Observable(observer => observer.next(null));
     }
 }

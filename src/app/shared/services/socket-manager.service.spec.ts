@@ -1,22 +1,18 @@
-import {TestBed, fakeAsync} from '@angular/core/testing';
+import {TestBed, fakeAsync, tick} from '@angular/core/testing';
+import * as io from 'socket.io-client';
 
 import { SocketManagerService } from './socket-manager.service';
 
 describe('SocketManagerService', () => {
-    let SocketIoMock: any;
-    let mockSocketIo: any;
+    let serverMock: any;
     let service: SocketManagerService;
 
     beforeEach(() => {
-        SocketIoMock = require('socket-io-mock');
-        mockSocketIo = new SocketIoMock();
-
         TestBed.configureTestingModule({
             providers: [SocketManagerService]
         });
 
         service = TestBed.get(SocketManagerService);
-        service.updateSocket(mockSocketIo);
     });
 
     it('should ...', () => {
@@ -24,10 +20,15 @@ describe('SocketManagerService', () => {
     });
 
     /*it('should test', fakeAsync(() => {
-        mockSocketIo.on('get-stt-config', () => {
+        const socket = io();
+        tick();
+
+        socket.on('get-stt-config', () => {
             console.log('SOCKET ON .........');
-            mockSocketIo.emit('res-stt-config', { prop: 'toto' });
+            socket.emit('res-stt-config', { prop: 'toto' });
         });
+        tick();
+
         service.speechToTextConfig().subscribe(res => {
             console.log(res);
         });

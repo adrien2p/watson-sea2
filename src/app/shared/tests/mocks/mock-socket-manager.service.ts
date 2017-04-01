@@ -89,6 +89,10 @@ export class MockSocketManagerService {
     constructor() {
     }
 
+    /***************************************************************************************************/
+    /*                                       Speech to text                                            */
+    /***************************************************************************************************/
+
     /**
      * Mock method
      *
@@ -167,5 +171,27 @@ export class MockSocketManagerService {
         return new Observable(observer => observer.next({
             data: MockSocketManagerService.fakeDeleteRecognitionJobResponse
         }));
+    }
+
+    /***************************************************************************************************/
+    /*                                       Local Tunnel                                              */
+    /***************************************************************************************************/
+
+    /**
+     * Mock method
+     *
+     * @returns {Observable<any>}
+     */
+    localTunnelStart(): Observable<any> {
+        return new Observable(observer => observer.next('https://localtunnel.me'));
+    }
+
+    /**
+     * Mock method
+     *
+     * @returns {Observable<any>}
+     */
+    localTunnelClose(): Observable<any> {
+        return new Observable(observer => observer.next(null));
     }
 }

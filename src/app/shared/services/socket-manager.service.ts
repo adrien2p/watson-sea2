@@ -19,6 +19,7 @@ export class SocketManagerService {
      * @param {any} value
      */
     updateSocket(value) {
+        this.socket.close();
         this.socket = value;
     }
 
