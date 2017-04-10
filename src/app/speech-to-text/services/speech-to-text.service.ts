@@ -13,7 +13,7 @@ export class SpeechToTextService {
      *
      * @returns {Observable<any>}
      */
-    getConfig(): Observable<any> {
+    public getConfig(): Observable<any> {
         return this.socketManagerService.speechToTextConfig();
     }
 
@@ -28,7 +28,7 @@ export class SpeechToTextService {
      * @param {string} [user_secret] The token allows the user to maintain an internal mapping between jobs and notification events
      * @returns {Observable<any>}
      */
-    registerCallback(params?: {[key: string]: any}): Observable<any> {
+    public registerCallback(params?: {[key: string]: any}): Observable<any> {
         return this.socketManagerService.speechToTextRegisterCallback(params);
     }
 
@@ -36,12 +36,12 @@ export class SpeechToTextService {
      * Creates a job for a new asynchronous recognition request.
      *
      * @param {object} params parameters
-     * @param {string} [params.event] recognitions.started|recognitions.completed|recognitions.failed|recognitions.completed_with_results
+     * @param {string|Array<string>} [params.event] recognitions.started|recognitions.completed|recognitions.failed|recognitions.completed_with_results
      * @param {string} [params.user_secret] The token allows the user to maintain an internal mapping between jobs and notification events
      * @param {string} [params.result_ttl] time to alive of the job result
      * @returns {Observable<any>}
      */
-    createRecognitionJob(params?: {[key: string]: any}): Observable<any> {
+    public createRecognitionJob(params?: {[key: string]: any}): Observable<any> {
         return this.socketManagerService.speechToTextCreateRecognitionJob(params);
     }
 
@@ -50,7 +50,7 @@ export class SpeechToTextService {
      *
      * @returns {Observable<any>}
      */
-    notifyJobStatus(): Observable<any> {
+    public notifyJobStatus(): Observable<any> {
         return this.socketManagerService.speechToTextNotifyJobStatus();
     }
 
@@ -59,7 +59,7 @@ export class SpeechToTextService {
      *
      * @returns {Observable<any>}
      */
-    getRecognitionJobs(): Observable<any> {
+    public getRecognitionJobs(): Observable<any> {
         return this.socketManagerService.speechToTextGetRecognitionJobs();
     }
 
@@ -70,7 +70,7 @@ export class SpeechToTextService {
      * @param {number} params.id job id
      * @returns {Observable<any>}
      */
-    getRecognitionJob(params: {[key: string]: any}): Observable<any> {
+    public getRecognitionJob(params: {[key: string]: any}): Observable<any> {
         return this.socketManagerService.speechToTextGetRecognitionJob(params);
     }
 
@@ -81,7 +81,7 @@ export class SpeechToTextService {
      * @param {number} params.id job id
      * @returns {Observable<any>}
      */
-    deleteRecognitionJob(params: {[key: string]: any}): Observable<any> {
+    public deleteRecognitionJob(params: {[key: string]: any}): Observable<any> {
         return this.socketManagerService.speechToTextDeleteRecognitionJob(params);
     }
 

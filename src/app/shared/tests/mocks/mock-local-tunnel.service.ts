@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class MockLocalTunnelService {
@@ -12,7 +12,7 @@ export class MockLocalTunnelService {
      *
      * @returns {Observable<any>}
      */
-    start(): Observable<any> {
+    public start(): Observable<any> {
         return new Observable(observer => observer.next({
             url: 'https://localtunnel.me'
         }));
@@ -23,7 +23,7 @@ export class MockLocalTunnelService {
      *
      * @returns {Observable<any>}
      */
-    close(): Observable<any> {
+    public close(): Observable<any> {
         return new Observable(observer => observer.next(null));
     }
 }

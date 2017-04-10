@@ -1,11 +1,9 @@
-/* tslint:disable:no-unused-variable */
-
-import {async, ComponentFixture, TestBed, tick} from '@angular/core/testing';
-import { ModalModule } from 'ng2-bootstrap';
-
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { APP_BASE_HREF } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { ModalModule } from 'ng2-bootstrap';
+
 import { LocalTunnelService } from '../shared/services/local-tunnel.service';
 import { SocketManagerService } from '../shared/services/socket-manager.service';
 import { SpeechToTextService } from './services/speech-to-text.service';
@@ -15,6 +13,7 @@ import { SpeechToTextSyncComponent } from './speech-to-text-sync/speech-to-text-
 import { SpeechToTextWsComponent } from './speech-to-text-ws/speech-to-text-ws.component';
 
 import { MockSpeechToTextService } from '../shared/tests/mocks/mock-speech-to-text.service';
+import * as fakeSttData from '../shared/tests/fakeData/fakeSpeechToTextData';
 
 const routes: Routes = [
     { path: 'speech-to-text', component: SpeechToTextComponent,
@@ -73,6 +72,6 @@ describe('SpeechToTextComponent', () => {
         component.ngOnInit();
         fixture.detectChanges();
 
-        expect(component.config).toBe(JSON.stringify(MockSpeechToTextService.fakeConfigResponse, null, 4));
+        expect(component.config).toBe(JSON.stringify(fakeSttData.fakeConfigResponse, null, 4));
     });
 });

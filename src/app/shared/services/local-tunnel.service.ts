@@ -13,7 +13,7 @@ export class LocalTunnelService {
      *
      * @returns {Observable<any>}
      */
-    start(): Observable<any> {
+    public start(): Observable<any> {
         return this.socketManagerService.localTunnelStart();
     }
 
@@ -22,7 +22,7 @@ export class LocalTunnelService {
      *
      * @returns {Observable<any>}
      */
-    close(): Observable<any> {
+    public close(): Observable<any> {
         return this.socketManagerService.localTunnelClose();
     }
 }

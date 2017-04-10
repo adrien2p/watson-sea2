@@ -7,9 +7,9 @@ import {
     TestBed,
     tick
 } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'ng2-bootstrap';
 
-import { FormsModule } from '@angular/forms';
 import { SocketManagerService } from '../../shared/services/socket-manager.service';
 import { LocalTunnelService } from '../../shared/services/local-tunnel.service';
 import { SpeechToTextService } from '../services/speech-to-text.service';
@@ -17,6 +17,7 @@ import { SpeechToTextAsyncComponent } from './speech-to-text-async.component';
 
 import { MockSpeechToTextService } from '../../shared/tests/mocks/mock-speech-to-text.service';
 import { MockLocalTunnelService } from '../../shared/tests/mocks/mock-local-tunnel.service';
+import * as fakeSttData from '../../shared/tests/fakeData/fakeSpeechToTextData';
 
 describe('SpeechToTextAsyncComponent', () => {
     let buttons: DebugElement[];
@@ -120,8 +121,8 @@ describe('SpeechToTextAsyncComponent', () => {
         component.registerCallback();
         tick();
 
-        expect(component.sttRegisterCallbackResponse.originalData).toEqual(MockSpeechToTextService.fakeRegisterCallbackResponse);
-        expect(component.sttRegisterCallbackResponse.data).toEqual(JSON.stringify(MockSpeechToTextService.fakeRegisterCallbackResponse, null, 4));
+        expect(component.sttRegisterCallbackResponse.originalData).toEqual(fakeSttData.fakeRegisterCallbackResponse);
+        expect(component.sttRegisterCallbackResponse.data).toEqual(JSON.stringify(fakeSttData.fakeRegisterCallbackResponse, null, 4));
         expect(component.sttRegisterCallbackResponse.isLoading).toEqual(false);
     }));
 
@@ -129,8 +130,8 @@ describe('SpeechToTextAsyncComponent', () => {
         component.createRecognitionJob();
         tick();
 
-        expect(component.sttCreateRecognitionJobResponse.originalData).toEqual(MockSpeechToTextService.fakeCreateRecognitionJobResponse);
-        expect(component.sttCreateRecognitionJobResponse.data).toEqual(JSON.stringify(MockSpeechToTextService.fakeCreateRecognitionJobResponse, null, 4));
+        expect(component.sttCreateRecognitionJobResponse.originalData).toEqual(fakeSttData.fakeCreateRecognitionJobResponse);
+        expect(component.sttCreateRecognitionJobResponse.data).toEqual(JSON.stringify(fakeSttData.fakeCreateRecognitionJobResponse, null, 4));
         expect(component.sttCreateRecognitionJobResponse.isLoading).toEqual(false);
     }));
 
@@ -138,8 +139,8 @@ describe('SpeechToTextAsyncComponent', () => {
         component.getRecognitionJobs();
         tick();
 
-        expect(component.sttGetRecognitionJobsResponse.originalData).toEqual(MockSpeechToTextService.fakeGetRecognitionJobsResponse);
-        expect(component.sttGetRecognitionJobsResponse.data).toEqual(JSON.stringify(MockSpeechToTextService.fakeGetRecognitionJobsResponse, null, 4));
+        expect(component.sttGetRecognitionJobsResponse.originalData).toEqual(fakeSttData.fakeGetRecognitionJobsResponse);
+        expect(component.sttGetRecognitionJobsResponse.data).toEqual(JSON.stringify(fakeSttData.fakeGetRecognitionJobsResponse, null, 4));
         expect(component.sttGetRecognitionJobsResponse.isLoading).toEqual(false);
     }));
 
@@ -147,8 +148,8 @@ describe('SpeechToTextAsyncComponent', () => {
         component.getRecognitionJob();
         tick();
 
-        expect(component.sttGetRecognitionJobResponse.originalData).toEqual(MockSpeechToTextService.fakeGetRecognitionJobResponse);
-        expect(component.sttGetRecognitionJobResponse.data).toEqual(JSON.stringify(MockSpeechToTextService.fakeGetRecognitionJobResponse, null, 4));
+        expect(component.sttGetRecognitionJobResponse.originalData).toEqual(fakeSttData.fakeGetRecognitionJobResponse);
+        expect(component.sttGetRecognitionJobResponse.data).toEqual(JSON.stringify(fakeSttData.fakeGetRecognitionJobResponse, null, 4));
         expect(component.sttGetRecognitionJobResponse.isLoading).toEqual(false);
     }));
 
@@ -156,8 +157,8 @@ describe('SpeechToTextAsyncComponent', () => {
         component.deleteRecognitionJob();
         tick();
 
-        expect(component.sttDeleteRecognitionJobResponse.originalData).toEqual(MockSpeechToTextService.fakeDeleteRecognitionJobResponse);
-        expect(component.sttDeleteRecognitionJobResponse.data).toEqual(JSON.stringify(MockSpeechToTextService.fakeDeleteRecognitionJobResponse, null, 4));
+        expect(component.sttDeleteRecognitionJobResponse.originalData).toEqual(fakeSttData.fakeDeleteRecognitionJobResponse);
+        expect(component.sttDeleteRecognitionJobResponse.data).toEqual(JSON.stringify(fakeSttData.fakeDeleteRecognitionJobResponse, null, 4));
         expect(component.sttDeleteRecognitionJobResponse.isLoading).toEqual(false);
     }));
 });

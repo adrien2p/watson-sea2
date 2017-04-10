@@ -4,23 +4,17 @@ import * as io from 'socket.io-client';
 
 @Injectable()
 export class SocketManagerService {
-    private socket: any = null;
+    private _socket: any = null;
 
     /**
      * Connect socket to the server side.
      */
     constructor() {
-        this.socket = io();
+        this._socket = io();
     }
 
-    /**
-     * Update socket with another instance.
-     *
-     * @param {any} value
-     */
-    updateSocket(value) {
-        this.socket.close();
-        this.socket = value;
+    get socket(): any {
+        return this._socket;
     }
 
     /***************************************************************************************************/
@@ -32,10 +26,10 @@ export class SocketManagerService {
      *
      * @returns {Observable<any>}
      */
-    speechToTextConfig(): Observable<any> {
-        this.socket.emit('get-stt-config');
+    public speechToTextConfig(): Observable<any> {
+        this._socket.emit('get-stt-config');
 
-        return new Observable(observer => this.socket.on('res-stt-config', res => observer.next(res)));
+        return new Observable(observer => this._socket.on('res-stt-config', res => observer.next(res)));
     }
 
     /**
@@ -45,25 +39,25 @@ export class SocketManagerService {
      * @param {string} [user_secret] The token allows the user to maintain an internal mapping between jobs and notification events
      * @returns {Observable<any>}
      */
-    speechToTextRegisterCallback(params: {[key: string]: any}): Observable<any> {
-        this.socket.emit('post-stt-registerCallback', params);
+    public speechToTextRegisterCallback(params: {[key: string]: any}): Observable<any> {
+        this._socket.emit('post-stt-registerCallback', params);
 
-        return new Observable(observer => this.socket.on('res-stt-registerCallback', res => observer.next(res)));
+        return new Observable(observer => this._socket.on('res-stt-registerCallback', res => observer.next(res)));
     }
 
     /**
      * Creates a job for a new asynchronous recognition request.
      *
      * @param {object} params parameters
-     * @param {string} [params.event] recognitions.started|recognitions.completed|recognitions.failed|recognitions.completed_with_results
+     * @param {string|Array<string>} [params.event] recognitions.started|recognitions.completed|recognitions.failed|recognitions.completed_with_results
      * @param {string} [params.user_secret] The token allows the user to maintain an internal mapping between jobs and notification events
      * @param {string} [params.result_ttl] time to alive of the job result
      * @returns {Observable<any>}
      */
-    speechToTextCreateRecognitionJob(params: {[key: string]: any}): Observable<any> {
-        this.socket.emit('post-stt-createRecognitionJob', params);
+    public speechToTextCreateRecognitionJob(params: {[key: string]: any}): Observable<any> {
+        this._socket.emit('post-stt-createRecognitionJob', params);
 
-        return new Observable(observer => this.socket.on('res-stt-createRecognitionJob', res => observer.next(res)));
+        return new Observable(observer => this._socket.on('res-stt-createRecognitionJob', res => observer.next(res)));
     }
 
     /**
@@ -71,8 +65,8 @@ export class SocketManagerService {
      *
      * @returns {Observable<any>}
      */
-    speechToTextNotifyJobStatus(): Observable<any> {
-        return new Observable(observer => this.socket.on('res-stt-notifyJobStatus', res => observer.next(res)));
+    public speechToTextNotifyJobStatus(): Observable<any> {
+        return new Observable(observer => this._socket.on('res-stt-notifyJobStatus', res => observer.next(res)));
     }
 
     /**
@@ -80,10 +74,10 @@ export class SocketManagerService {
      *
      * @returns {Observable<any>}
      */
-    speechToTextGetRecognitionJobs(): Observable<any> {
-        this.socket.emit('get-stt-getRecognitionJobs');
+    public speechToTextGetRecognitionJobs(): Observable<any> {
+        this._socket.emit('get-stt-getRecognitionJobs');
 
-        return new Observable(observer => this.socket.on('res-stt-getRecognitionJobs', res => observer.next(res)));
+        return new Observable(observer => this._socket.on('res-stt-getRecognitionJobs', res => observer.next(res)));
     }
 
     /**
@@ -93,10 +87,10 @@ export class SocketManagerService {
      * @param {number} params.id job id
      * @returns {Observable<any>}
      */
-    speechToTextGetRecognitionJob(params: {[key: string]: any}): Observable<any> {
-        this.socket.emit('get-stt-getRecognitionJob', params);
+    public speechToTextGetRecognitionJob(params: {[key: string]: any}): Observable<any> {
+        this._socket.emit('get-stt-getRecognitionJob', params);
 
-        return new Observable(observer => this.socket.on('res-stt-getRecognitionJob', res => observer.next(res)));
+        return new Observable(observer => this._socket.on('res-stt-getRecognitionJob', res => observer.next(res)));
     }
 
     /**
@@ -106,10 +100,10 @@ export class SocketManagerService {
      * @param {number} params.id job id
      * @returns {Observable<any>}
      */
-    speechToTextDeleteRecognitionJob(params: {[key: string]: any}): Observable<any> {
-        this.socket.emit('delete-stt-deleteRecognitionJob', params);
+    public speechToTextDeleteRecognitionJob(params: {[key: string]: any}): Observable<any> {
+        this._socket.emit('delete-stt-deleteRecognitionJob', params);
 
-        return new Observable(observer => this.socket.on('res-stt-deleteRecognitionJob', res => observer.next(res)));
+        return new Observable(observer => this._socket.on('res-stt-deleteRecognitionJob', res => observer.next(res)));
     }
 
     /***************************************************************************************************/
@@ -121,10 +115,10 @@ export class SocketManagerService {
      *
      * @returns {Observable<any>}
      */
-    localTunnelStart(): Observable<any> {
-        this.socket.emit('post-localTunnel-start');
+    public localTunnelStart(): Observable<any> {
+        this._socket.emit('post-localTunnel-start');
 
-        return new Observable(observer => this.socket.on('res-localTunnel-start', res => observer.next(res)));
+        return new Observable(observer => this._socket.on('res-localTunnel-start', res => observer.next(res)));
     }
 
     /**
@@ -132,9 +126,9 @@ export class SocketManagerService {
      *
      * @returns {Observable<any>}
      */
-    localTunnelClose(): Observable<any> {
-        this.socket.emit('post-localTunnel-close');
+    public localTunnelClose(): Observable<any> {
+        this._socket.emit('post-localTunnel-close');
 
-        return new Observable(observer => this.socket.on('res-localTunnel-close', () => observer.next(null)));
+        return new Observable(observer => this._socket.on('res-localTunnel-close', () => observer.next(null)));
     }
 }

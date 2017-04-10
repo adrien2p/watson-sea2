@@ -62,7 +62,7 @@ export class SpeechToTextAsyncComponent implements OnInit, OnDestroy {
      * @param {any} modal The modal to show
      * @param {string} target Show the right parameters in the modal
      */
-    public openModal(modal, target) {
+    public openModal(modal, target): void {
         this.isModalOpen = true;
 
         for (const key of Object.keys(this.parameters)) {
@@ -81,7 +81,7 @@ export class SpeechToTextAsyncComponent implements OnInit, OnDestroy {
      *
      * @param modal The modal to close
      */
-    closeModal(modal) {
+    public closeModal(modal): void {
         this.isModalOpen = false;
         modal.hide();
     }

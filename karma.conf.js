@@ -29,9 +29,11 @@ module.exports = function (config) {
             remapOptions: {
                 exclude: function (path) {
                     const EXCLUDED_FILES = [
+                        '/src/app/shared/tests/fakeData/fakeSpeechToTextData.ts',
                         '/src/app/shared/tests/mocks/mock-local-tunnel.service.ts',
                         '/src/app/shared/tests/mocks/mock-socket-manager.service.ts',
-                        '/src/app/shared/tests/mocks/mock-speech-to-text.service.ts'
+                        '/src/app/shared/tests/mocks/mock-speech-to-text.service.ts',
+                        '/src/app/shared/tests/mocks/mock-server.ts'
                     ];
                     return EXCLUDED_FILES.indexOf(path.substring(__dirname.length)) >= 0;
                 }
